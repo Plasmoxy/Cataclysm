@@ -5,11 +5,19 @@
 using namespace cv;
 using namespace std;
 
+Scalar hsvBgrScalar(uchar H, uchar S, uchar V) {
+	Mat rgb;
+	Mat hsv(1, 1, CV_8UC3, Scalar(H, S, V));
+	cvtColor(hsv, rgb, CV_HSV2BGR);
+	return Scalar(rgb.data[0], rgb.data[1], rgb.data[2]);
+}
+
 int main(int argc, char** argv)
 {
 	cout<< "OpenCV " << CV_VERSION << endl
 		<< "HSV Color range tool somewhere from the internet lol" << endl
 		<< "by Plasmoxy ( Sebastian Petrik )" << endl
+		<< "Written in C++" << endl
 		<< "Press ESC or Q to exit." << endl
 		;
 	
@@ -22,36 +30,64 @@ int main(int argc, char** argv)
 		return -1;
 	}
 
-	namedWindow("Control", CV_WINDOW_AUTOSIZE);
-	resizeWindow("Control", 400, 400);
-
 	int iLowH = 0;
 	int iHighH = 179;
 
-	int iLowS = 0;
+	int iLowS = 50;
 	int iHighS = 255;
 
-	int iLowV = 0;
+	int iLowV = 35;
 	int iHighV = 255;
 
 	int morphScale = 5;
 	int minSize = 30;
 
+	int drawObjectRectangles = 1;
+	int drawObjectContours = 0;
+
+	namedWindow("Control", CV_WINDOW_AUTOSIZE);
+	
+	
 	//Create trackbars in "Control" window
-	cvCreateTrackbar("LowH", "Control", &iLowH, 179); //Hue (0 - 179)
-	cvCreateTrackbar("HighH", "Control", &iHighH, 179);
+	cvCreateTrackbar("MinH", "Control", &iLowH, 179); //Hue (0 - 179)
+	cvCreateTrackbar("MaxH", "Control", &iHighH, 179);
 
-	cvCreateTrackbar("LowS", "Control", &iLowS, 255); //Saturation (0 - 255)
-	cvCreateTrackbar("HighS", "Control", &iHighS, 255);
+	cvCreateTrackbar("MinS", "Control", &iLowS, 255); //Saturation (0 - 255)
+	cvCreateTrackbar("MaxS", "Control", &iHighS, 255);
 
-	cvCreateTrackbar("LowV", "Control", &iLowV, 255); //Value (0 - 255)
-	cvCreateTrackbar("HighV", "Control", &iHighV, 255);
+	cvCreateTrackbar("MinV", "Control", &iLowV, 255); //Value (0 - 255)
+	cvCreateTrackbar("MaxV", "Control", &iHighV, 255);
 
-	cvCreateTrackbar("Morph scale", "Control", &morphScale, 5);
-	cvCreateTrackbar("Minimal Size", "Control", &minSize, 100);
+	cvCreateTrackbar("MorphSize", "Control", &morphScale, 20);
+	cvCreateTrackbar("MinSize", "Control", &minSize, 500);
+
+	cvCreateTrackbar("Rectangles", "Control", &drawObjectRectangles, 1);
+	cvCreateTrackbar("Contours", "Control", &drawObjectContours, 1);
+
+	// Window with current colors selected
+
+	namedWindow("Colors", CV_WINDOW_NORMAL);
+	resizeWindow("Colors", 300, 200);
+	Mat colorMat(200, 200, CV_8UC3, Scalar(0, 0, 0));
+	cvtColor(colorMat, colorMat, CV_BGR2HSV);
+
+	
 
 	while (true)
 	{
+		// draw the color rectangles
+		rectangle(colorMat, Rect(0, 0, 100, 100), hsvBgrScalar(iLowH, iLowS, iLowV), -1);
+		rectangle(colorMat, Rect(100, 0, 100, 100), hsvBgrScalar(iHighH, iHighS, iHighV), -1);
+		
+		rectangle(colorMat, Rect(0,100,100,100), hsvBgrScalar(iLowH, 255, 255), -1);
+		rectangle(colorMat, Rect(100,100,100,100), hsvBgrScalar(iHighH, 255, 255), -1);
+		
+		putText(colorMat, "MIN", Point(0, 20), CV_FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
+		putText(colorMat, "MAX", Point(100, 20), CV_FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
+
+		putText(colorMat, "MIN_HUE", Point(0, 120), CV_FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
+		putText(colorMat, "MAX_HUE", Point(100, 120), CV_FONT_HERSHEY_SIMPLEX, 0.7, Scalar(255, 255, 255), 1);
+
 		if (morphScale < 1) morphScale = 1;
 		Mat imgOriginal;
 
@@ -93,19 +129,25 @@ int main(int argc, char** argv)
 		
 		for (size_t idx = 0; idx < contours.size(); idx++)
 		{
-			drawContours(imgOriginal, contours, idx, Scalar(255, 0, 0));
-			Rect contourRect = boundingRect(contours[idx]);
-			if ( contourRect.height >= minSize || contourRect.width >= minSize)
-				rectangle(imgOriginal, contourRect, Scalar(0, 0, 255), 2);
+			if (drawObjectContours)
+				drawContours(imgOriginal, contours, idx, Scalar(255, 0, 0));
+			if (contourArea(contours[idx]) >= minSize*minSize)
+			{
+				Rect contourRect = boundingRect(contours[idx]);
+				if (drawObjectRectangles)
+				{
+					rectangle(imgOriginal, contourRect, Scalar(0, 0, 255), 2);
+				}
+			}
 		}
-		
 
+		imshow("Mask", mask);
 		imshow("Masked image", imgMasked);
-		imshow("Thresholded Image", mask); //show the thresholded image
-		imshow("Original", imgOriginal); //show the original image
-
-		int key = waitKey(30);
-		if (key == 27 || key == (int)'q') //wait for 'esc' key press for 30ms. If 'esc' key is pressed, break loop
+		imshow("Colors", colorMat);
+		imshow("Original", imgOriginal); //show the original image with contours
+		
+		int key = waitKey(1); // one milisecond delay is good
+		if (key == 27 || key == (int)'q')
 		{
 			cout << "esc key is pressed by user" << endl;
 			break;
