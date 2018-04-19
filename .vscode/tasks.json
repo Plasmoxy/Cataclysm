@@ -4,17 +4,9 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "build helloworld",
-            "type": "shell",
-            "command": "g++",
-            "args": [
-                "-g",
-                "hello.cpp"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            }
+            "label": "cmake HelloWorld",
+            "command": "cmake",
+            "args": [""]
         }
     ]
 }
