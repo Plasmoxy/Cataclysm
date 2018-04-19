@@ -14,7 +14,7 @@ __global__ void xd() {
 
 int main() {
 	
-	hello <<<1, 1000>>> ();
+	hello <<<1, 5>>> ();
 	cudaDeviceSynchronize();
 
 	return 0;
