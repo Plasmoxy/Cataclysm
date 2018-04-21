@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Brainfuck2", "Brainfuck2\Br
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Klass", "Klass\Klass.vcxproj", "{3D0A7B28-774E-444B-A434-858981A7B852}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Matematix", "Matematix\Matematix.vcxproj", "{394ECE67-8F61-4689-A8AD-C93750F3942D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{3D0A7B28-774E-444B-A434-858981A7B852}.Release|x64.Build.0 = Release|x64
 		{3D0A7B28-774E-444B-A434-858981A7B852}.Release|x86.ActiveCfg = Release|Win32
 		{3D0A7B28-774E-444B-A434-858981A7B852}.Release|x86.Build.0 = Release|Win32
+		{394ECE67-8F61-4689-A8AD-C93750F3942D}.Debug|x64.ActiveCfg = Debug|x64
+		{394ECE67-8F61-4689-A8AD-C93750F3942D}.Debug|x64.Build.0 = Debug|x64
+		{394ECE67-8F61-4689-A8AD-C93750F3942D}.Debug|x86.ActiveCfg = Debug|Win32
+		{394ECE67-8F61-4689-A8AD-C93750F3942D}.Debug|x86.Build.0 = Debug|Win32
+		{394ECE67-8F61-4689-A8AD-C93750F3942D}.Release|x64.ActiveCfg = Release|x64
+		{394ECE67-8F61-4689-A8AD-C93750F3942D}.Release|x64.Build.0 = Release|x64
+		{394ECE67-8F61-4689-A8AD-C93750F3942D}.Release|x86.ActiveCfg = Release|Win32
+		{394ECE67-8F61-4689-A8AD-C93750F3942D}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
