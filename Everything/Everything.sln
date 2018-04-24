@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XDDD", "XDDD\XDDD.vcxproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Cubbe", "Cubbe\Cubbe.vcxproj", "{62A84797-B38E-4D05-A03E-5A991F4DBA1F}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Emptygl", "Emptygl\Emptygl.vcxproj", "{6EF2561A-9C3A-4957-B0C5-E527E4706D6B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -81,6 +83,14 @@ Global
 		{62A84797-B38E-4D05-A03E-5A991F4DBA1F}.Release|x64.Build.0 = Release|x64
 		{62A84797-B38E-4D05-A03E-5A991F4DBA1F}.Release|x86.ActiveCfg = Release|Win32
 		{62A84797-B38E-4D05-A03E-5A991F4DBA1F}.Release|x86.Build.0 = Release|Win32
+		{6EF2561A-9C3A-4957-B0C5-E527E4706D6B}.Debug|x64.ActiveCfg = Debug|x64
+		{6EF2561A-9C3A-4957-B0C5-E527E4706D6B}.Debug|x64.Build.0 = Debug|x64
+		{6EF2561A-9C3A-4957-B0C5-E527E4706D6B}.Debug|x86.ActiveCfg = Debug|Win32
+		{6EF2561A-9C3A-4957-B0C5-E527E4706D6B}.Debug|x86.Build.0 = Debug|Win32
+		{6EF2561A-9C3A-4957-B0C5-E527E4706D6B}.Release|x64.ActiveCfg = Release|x64
+		{6EF2561A-9C3A-4957-B0C5-E527E4706D6B}.Release|x64.Build.0 = Release|x64
+		{6EF2561A-9C3A-4957-B0C5-E527E4706D6B}.Release|x86.ActiveCfg = Release|Win32
+		{6EF2561A-9C3A-4957-B0C5-E527E4706D6B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
