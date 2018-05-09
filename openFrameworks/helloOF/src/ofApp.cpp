@@ -1,6 +1,7 @@
 #include "ofApp.h"
 #include <iostream>
 
+#include "objects.h"
 
 // random background on start
 ofApp::ofApp() :
@@ -22,9 +23,6 @@ void ofApp::setup() {
 
 	ofBackground(bgColor);
 
-
-
-
 }
 
 //--------------------------------------------------------------
@@ -38,8 +36,6 @@ void ofApp::draw() {
 
 	double dt = ofGetLastFrameTime(); // in milliseconds
 	updateRectColorTimer(dt);
-	
-	
 
 	ofPushStyle();
 	ofSetColor(rectColor);
@@ -64,7 +60,7 @@ void ofApp::updateRectColorTimer(double dt) {
 	
 	if (rectColorTimer > 1.0) { // after one second
 
-		rectColor = getRandomColor(); // change color
+		rectColor.set(getRandomColor()); // change color
 
 		rectColorTimer = 0; // reset timer
 	}
