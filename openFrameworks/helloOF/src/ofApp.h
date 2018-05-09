@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ofMain.h"
+#include "objects.h"
 
 class ofApp : public ofBaseApp {
 public:
@@ -8,7 +9,14 @@ public:
 	ofColor bgColor, rectColor;
 	ofVec2f mouse;
 
+	ofVec2f gravity;
+	Vehicle v1;
+	Entity e1;
+
+	//std::vector<Entity> entities;
+
 	double rectColorTimer;
+	bool gravityOn;
 
 	ofApp();
 
