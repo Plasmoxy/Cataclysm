@@ -6,3 +6,8 @@ struct Util {
 		std::cout << a << std::endl;
 	}
 };
+
+
+struct Vector {
+	Vector(float x, float y);
+};
