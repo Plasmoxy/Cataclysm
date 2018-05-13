@@ -20,8 +20,6 @@ void initGL() {
 
 float ang = 0;
 
-/* Handler for window-repaint event. Called back when the window first appears and
-whenever the window needs to be re-painted. */
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // Clear color and depth buffers
 	glMatrixMode(GL_MODELVIEW);     // To operate on model-view matrix
@@ -33,7 +31,7 @@ void display() {
 
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glColor3f(1.f, 0, 0);
-	glLineWidth(2.5f);
+	glLineWidth(3.5f);
 	glBegin(GL_POLYGON);
 	glVertex3f(-10.f, -10.f, 0.f);
 	glVertex3f(-10.f, 10.f, 2.f);
