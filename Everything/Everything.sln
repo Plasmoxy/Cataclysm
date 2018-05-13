@@ -37,6 +37,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProcessHack", "PoinerHack\P
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ProcessHackTester", "ProcessHackTester\ProcessHackTester.vcxproj", "{9C77CFCA-A7F4-453A-8E8E-06D71826B252}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BoostThingy", "BoostThingy\BoostThingy.vcxproj", "{15CF7CA3-B38B-4ECD-86F9-52D21090940F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -181,6 +183,14 @@ Global
 		{9C77CFCA-A7F4-453A-8E8E-06D71826B252}.Release|x64.Build.0 = Release|x64
 		{9C77CFCA-A7F4-453A-8E8E-06D71826B252}.Release|x86.ActiveCfg = Release|Win32
 		{9C77CFCA-A7F4-453A-8E8E-06D71826B252}.Release|x86.Build.0 = Release|Win32
+		{15CF7CA3-B38B-4ECD-86F9-52D21090940F}.Debug|x64.ActiveCfg = Debug|x64
+		{15CF7CA3-B38B-4ECD-86F9-52D21090940F}.Debug|x64.Build.0 = Debug|x64
+		{15CF7CA3-B38B-4ECD-86F9-52D21090940F}.Debug|x86.ActiveCfg = Debug|Win32
+		{15CF7CA3-B38B-4ECD-86F9-52D21090940F}.Debug|x86.Build.0 = Debug|Win32
+		{15CF7CA3-B38B-4ECD-86F9-52D21090940F}.Release|x64.ActiveCfg = Release|x64
+		{15CF7CA3-B38B-4ECD-86F9-52D21090940F}.Release|x64.Build.0 = Release|x64
+		{15CF7CA3-B38B-4ECD-86F9-52D21090940F}.Release|x86.ActiveCfg = Release|Win32
+		{15CF7CA3-B38B-4ECD-86F9-52D21090940F}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
