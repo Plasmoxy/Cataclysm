@@ -1,5 +1,5 @@
 %.obj: %.asm
 	nasm -f win32 $<
 
-pointers: pointers.obj
+pointers.exe: pointers.obj
 	gcc $< -o $@
