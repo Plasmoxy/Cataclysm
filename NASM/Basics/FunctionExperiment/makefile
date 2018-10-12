@@ -1,9 +1,12 @@
+BIN=fexperiment
+OBJS=$(BIN).obj
+
 %.obj: %.asm
 	nasm -f win32 $<
 
-%.exe: %.obj
+$(BIN): $(OBJS)
 	gcc $< -o $@
 
-run: exitp.exe
+run: $(BIN)
 	@echo ---
 	@$<
