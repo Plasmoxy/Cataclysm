@@ -1,4 +1,9 @@
 
+# Base C
+*.exe
+*.obj
+.vscode
+
 # CMake
 CMakeCache.txt
 CMakeFiles
