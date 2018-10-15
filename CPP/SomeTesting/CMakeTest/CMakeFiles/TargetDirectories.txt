@@ -1,0 +1,3 @@
+X:/GIT/cataclysm/CPP/SomeTesting/CMakeTest/CMakeFiles/hello.dir
+X:/GIT/cataclysm/CPP/SomeTesting/CMakeTest/CMakeFiles/edit_cache.dir
+X:/GIT/cataclysm/CPP/SomeTesting/CMakeTest/CMakeFiles/rebuild_cache.dir
