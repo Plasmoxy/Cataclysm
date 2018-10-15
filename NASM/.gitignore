@@ -1,0 +1,4 @@
+# NASM
+*.exe
+*.obj
+.vscode
