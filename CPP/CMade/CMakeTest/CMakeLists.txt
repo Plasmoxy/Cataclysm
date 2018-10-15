@@ -1,5 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 project(CMakeTest)
 
-include_directories("src/somelib")
-add_executable(hello src/hello.cpp src/somelib/lib.cpp)
+file(GLOB_RECURSE SOURCES "src/*.cpp")
+
+include_directories("include")
+add_executable(hello ${SOURCES})
