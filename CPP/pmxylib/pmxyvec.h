@@ -1,9 +1,10 @@
 #pragma once
 
-#include <pmxy.h>
-
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <iostream>
+
+#include <pmxy.h>
 
 namespace pmxy {
 	class Vec {
