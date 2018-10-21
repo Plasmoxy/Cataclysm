@@ -9,7 +9,8 @@ using namespace std;
 
 class Trojuholnik {
 public:
-    double a, b, c, alfa, beta, gama;
+    double a, b, c; // strany trojuholnika
+    double alfa, beta, gama; // uhly su ulozene v radianoch
 
     Trojuholnik():
         a(0), b(0), c(0),
@@ -17,6 +18,7 @@ public:
     {}
     
     // vypocet vsetkych ostatnych dat trojuholnika podla viet
+    // TODO: treba dajak inak to vymysliet
     void vypocitaj() {
 
         // tri strany
@@ -26,6 +28,7 @@ public:
             gama = M_PI - alfa - beta;
         }
 
+        // a, b + uhly
         else if (a && b && alfa) {
             beta = sinusovaVetaUhol(b, a, alfa);
             gama = M_PI - alfa - beta;
@@ -41,7 +44,44 @@ public:
             alfa = sinusovaVetaUhol(a, c, gama);
             beta = sinusovaVetaUhol(b, c, gama);
         }
-        
+
+        // a, c + uhly
+        else if (a && c && alfa) {
+            gama = sinusovaVetaUhol(c, a, alfa);
+            beta = M_PI - alfa - gama;
+            b = sinusovaVetaStrana(beta, a, alfa);
+        }
+        else if (a && c && beta) {
+            b = kosinusovaVetaStrana(beta, a, c);
+            alfa = sinusovaVetaUhol(a, b, beta);
+            gama = sinusovaVetaUhol(c, b, beta);
+        }
+        else if (a && c && gama) {
+            alfa = sinusovaVetaUhol(a, c, gama);
+            beta = M_PI - alfa - gama;
+            b = sinusovaVetaStrana(beta, c, gama);
+        }
+
+        // b, c + uhly
+        else if (b && c && alfa) {
+            a = kosinusovaVetaStrana(alfa, b, c);
+            beta = sinusovaVetaUhol(b, a, alfa);
+            gama = M_PI - alfa - beta;
+        }
+        else if (b && c && beta) {
+            gama = sinusovaVetaUhol(c, b, beta);
+            alfa = M_PI - beta - gama;
+            a = sinusovaVetaStrana(alfa, b, beta);
+        }
+        else if (b && c && gama) {
+            beta = sinusovaVetaUhol(b, c, gama);
+            alfa = M_PI - beta - gama;
+            a = sinusovaVetaStrana(alfa, c, gama);
+        }
+
+        else {
+            cout << "CHYBA: Treba zadat aspon 3 parametre trojuholnika!" << endl;
+        }
     }
 
     // a^2 = b^2 + c^2 - 2bc*cos(alfa)
@@ -84,6 +124,7 @@ Trojuholnik vstupTrojuholnik() {
     Trojuholnik troj;
 
     cout << "Zadavajte data (napiste ok pre ukoncenie) (uhly su v stupnoch) :" << endl;
+    troj.vypis();
 
     bool hotovo = false;
     while (!hotovo) {
@@ -136,7 +177,7 @@ Trojuholnik vstupTrojuholnik() {
 }
 
 int main() {
-    cout << __cplusplus << endl;
+    cout << "Vypocet vseobecneho trojuholnika - S.Petrik - C++" << endl;
     Trojuholnik t = vstupTrojuholnik();
     t.vypocitaj();
     t.vypis();
