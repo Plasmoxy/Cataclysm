@@ -9,50 +9,66 @@ using namespace std;
 
 class Trojuholnik {
 public:
-    double a=0, b=0, c=0, alfa=0, beta=0, gama=0;
+    double a, b, c, alfa, beta, gama;
 
-    Trojuholnik() {}
+    Trojuholnik():
+        a(0), b(0), c(0),
+        alfa(0), beta(0), gama(0)
+    {}
     
     // vypocet vsetkych ostatnych dat trojuholnika podla viet
     void vypocitaj() {
 
-        int strany = (a!=0) + (b!=0) + (c!=0);
-        int uhly = (alfa!=0) + (beta!=0) + (gama!=0);
-
-        // veta SSS
-        if (strany == 3) {
-            alfa = kosinusovaVeta(a, b, c);
-            beta = kosinusovaVeta(b, a, c);
+        // tri strany
+        if (a && b && c) {
+            alfa = kosinusovaVetaUhol(a, b, c);
+            beta = kosinusovaVetaUhol(b, a, c);
             gama = M_PI - alfa - beta;
         }
-        
-        else if (strany >= 2 && uhly >= 1) {
-            int s1, s2, u;
-            
-        }
 
+        else if (a && b && alfa) {
+            beta = sinusovaVetaUhol(b, a, alfa);
+            gama = M_PI - alfa - beta;
+            c = sinusovaVetaStrana(gama, a, alfa);
+        }
+        else if (a && b && beta) {
+            alfa = sinusovaVetaUhol(a, b, beta);
+            gama = M_PI - alfa - beta;
+            c = sinusovaVetaStrana(gama, a, alfa);
+        }
+        else if (a && b && gama) {
+            c = kosinusovaVetaStrana(gama, a, b);
+            alfa = sinusovaVetaUhol(a, c, gama);
+            beta = sinusovaVetaUhol(b, c, gama);
+        }
         
     }
 
     // a^2 = b^2 + c^2 - 2bc*cos(alfa)
-    // vracia alfu (oproti strane a)
-    // a -> protilahla strana uhlu ktory chceme ziskat
-    double kosinusovaVeta(double a, double b, double c) {
+    // vracia uhol protilahly strane a ak b,c zvieraju tento uhol
+    double kosinusovaVetaUhol(double a, double b, double c) {
         return acos(
             (b*b + c*c - a*a) / (2*b*c)
         );
     }
 
+    // vracia stranu protihahlu uhlu gama ak mame gamu, a jej prilahle strany b,a
+    double kosinusovaVetaStrana(double gama, double b, double a) {
+        return sqrt(
+            b*b + a*a - 2*b*a*cos(gama)
+        );
+    }
+
     // a/sin(alfa) = b/sin(beta)
-    // vracia stranu a ak zadame alfu, b, betu
+    // vracia stranu protihahlu alfe ak beta je protilahly uhol strane b
     double sinusovaVetaStrana(double alfa, double b, double beta) {
         return (b * sin(alfa)) / sin(beta);
     }
 
-    // vracia uhol alfa ak zadame a, b, betu
+    // vracia uhol alfa protihahly strane a ak beta je protilahly uhol strane b
     double sinusovaVetaUhol(double a, double b, double beta) {
         return asin(
-            (a * sin(b)) / b
+            (a * sin(beta)) / b
         );
     }
 
@@ -67,7 +83,7 @@ public:
 Trojuholnik vstupTrojuholnik() {
     Trojuholnik troj;
 
-    cout << "Zadavajte data (napiste ok pre ukoncenie) :" << endl;
+    cout << "Zadavajte data (napiste ok pre ukoncenie) (uhly su v stupnoch) :" << endl;
 
     bool hotovo = false;
     while (!hotovo) {
@@ -104,11 +120,11 @@ Trojuholnik vstupTrojuholnik() {
             }
             
             else if (p == "alfa") {
-                troj.alfa = hodnota;
+                troj.alfa = hodnota/180*M_PI;
             } else if (p == "beta") {
-                troj.beta = hodnota;
+                troj.beta = hodnota/180*M_PI;
             } else if (p == "gama") {
-                troj.gama = hodnota;
+                troj.gama = hodnota/180*M_PI;
             }
         }
     }
@@ -120,6 +136,7 @@ Trojuholnik vstupTrojuholnik() {
 }
 
 int main() {
+    cout << __cplusplus << endl;
     Trojuholnik t = vstupTrojuholnik();
     t.vypocitaj();
     t.vypis();
