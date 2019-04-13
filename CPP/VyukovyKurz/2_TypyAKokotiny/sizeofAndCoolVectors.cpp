@@ -55,5 +55,6 @@ int main() {
 
     auto sum = v1.cpy().add(v2);
 
+    cout << "sum of vectors" << endl;
     sum.print();
 }
