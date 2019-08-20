@@ -1,5 +1,9 @@
 #include <iostream>
+#include <memory>
 using namespace std;
+
+#define _p std::shared_ptr
+#define _g get()
 
 template <typename T>
 struct Vec {
@@ -57,4 +61,9 @@ int main() {
 
     cout << "sum of vectors" << endl;
     sum.print();
+
+    auto p = _p<Vec3i>(new Vec3i());
+    p._g->x = 0;
+    p._g->y = 23;
+    p._g->print();
 }
