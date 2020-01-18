@@ -6,10 +6,14 @@
 class ofApp : public ofBaseApp{
 
 	public:
+
 		ofxLabel l1;
 		ofxFloatSlider radius;
 		ofxColorSlider colorSlider;
 		ofxPanel gui;
+
+		ofEasyCam cam;
+		ofLight light;
 
 		void setup();
 		void update();

@@ -194,6 +194,7 @@
     <ClCompile Include="..\..\..\..\..\lib\of\addons\ofxGui\src\ofxToggle.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\..\lib\cpp-httplib\httplib.h" />
     <ClInclude Include="src\ofApp.h" />
     <ClInclude Include="..\..\..\..\..\lib\of\addons\ofxGui\src\ofxBaseGui.h" />
     <ClInclude Include="..\..\..\..\..\lib\of\addons\ofxGui\src\ofxButton.h" />

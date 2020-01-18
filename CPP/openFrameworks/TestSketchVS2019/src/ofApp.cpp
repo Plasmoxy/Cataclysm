@@ -7,6 +7,9 @@ void ofApp::setup(){
 	gui.add(radius.setup("radius", 140, 10, 300));
 	gui.add(l1.setup("", "Selekt kolore:"));
 	gui.add(colorSlider.setup(ofColor(1.0f, 0.0f, 0.0f)));
+
+	ofSetVerticalSync(true);
+	cam.setDistance(160);
 }
 
 //--------------------------------------------------------------
@@ -16,8 +19,31 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	//ofSetColor(colorSlider);
+	//ofDrawCircle(ofGetWidth() / 2, ofGetHeight() / 2, (float)radius);
+
+	/*
+	ofEnableDepthTest();
+	ofPushMatrix();
+		camera.begin();
+		light.enable();
+		ofSphere(ofGetWidth() / 2, ofGetHeight() / 2, -200, 100);
+		light.disable();
+		camera.end();
+	ofPopMatrix();
+	ofDisableDepthTest();
+
+	gui.draw();
+	*/
+
+	ofEnableDepthTest();
+	cam.begin();
 	ofSetColor(colorSlider);
-	ofDrawCircle(ofGetWidth() / 2, ofGetHeight() / 2, (float)radius);
+	ofNoFill();
+	ofDrawBox(30);
+	cam.end();
+
+	ofDisableDepthTest();
 	gui.draw();
 }
 
