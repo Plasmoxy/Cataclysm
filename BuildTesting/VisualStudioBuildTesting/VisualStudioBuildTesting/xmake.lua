@@ -4,9 +4,14 @@ target("ChernoStaticLinking")
     -- set kind
     set_kind("binary")
 
+    
+
+    add_links("glfw3")
+    add_includedirs("C:\\lib\\glfw-3.3.2\\include")
+    add_linkdirs("C:\\lib\\glfw-3.3.2\\lib-vc2015")
+    
     -- add files
     add_files("*.cpp")
-
 --
 -- FAQ
 --

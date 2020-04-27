@@ -5,5 +5,5 @@
 int main()
 {
     glfwInit();
-    std::cout << "Hello World!\n";
+    std::cout << "Hello Wosdrld!\n";
 }
