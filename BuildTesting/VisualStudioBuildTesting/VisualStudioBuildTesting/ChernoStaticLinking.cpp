@@ -1,9 +1,16 @@
 
 #include <iostream>
 #include <GLFW/glfw3.h>
+#include <fmt/format.h>
+#include "TestLibrary.hpp"
 
 int main()
 {
-    glfwInit();
-    std::cout << "Hello Wosdrld!\n";
+	fmt::print("Init glfw: {}\n", glfwInit());
+
+	int a = 5;
+	fmt::print("Hello {}\n", a);
+	// pronts Hello 5
+
+	prontTestLibrary();
 }
