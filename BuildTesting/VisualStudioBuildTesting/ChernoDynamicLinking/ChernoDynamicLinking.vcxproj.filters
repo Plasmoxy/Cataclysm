@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ChernoStaticLinking.cpp">
+    <ClCompile Include="ChernoDynamicLinking.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
