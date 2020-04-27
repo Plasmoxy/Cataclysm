@@ -9,7 +9,7 @@ int main()
 	fmt::print("Init glfw: {}\n", glfwInit());
 
 	int a = 5;
-	fmt::print("Hello {}\n", a);
+	fmt::print("Hello xd {}\n", a);
 	// pronts Hello 5
 
 	prontTestLibrary();
