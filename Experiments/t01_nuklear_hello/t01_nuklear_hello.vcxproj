@@ -23,6 +23,7 @@
     <ProjectGuid>{127cd5eb-1b8d-487c-95ba-2481117cb2b2}</ProjectGuid>
     <RootNamespace>t01_nuklear_hello</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>c01_nuklear_hello</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
