@@ -1,12 +1,12 @@
-#include <stdio.h>
+﻿#include <stdio.h>
 #include <wchar.h>
-#include <stdlib.h>
 #include <locale.h>
 
 int main(int argc, char** argv) {
-	setlocale(LC_ALL, "en_US.UTF-8");
-
-	printf("ahah��ddd\n");
+	setlocale(LC_ALL, "");
+	
+	int t = 4;
+	wprintf(L"Kačka a vĺčik plávajú cez vŕbu a jedia mäso, %d\n", t);;
 
 	return 0;
 }
