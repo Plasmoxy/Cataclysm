@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "c01_nuklear_hello", "t01_nu
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "nana00_hello", "nana00_hello\nana00_hello.vcxproj", "{FDF6D054-70F1-4C2F-B7E6-9484E34472E8}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "webview_zserge_please", "webview_zserge_please\webview_zserge_please.vcxproj", "{53D94356-ACE3-4AA5-9749-4A8285691026}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{FDF6D054-70F1-4C2F-B7E6-9484E34472E8}.Release|x64.Build.0 = Release|x64
 		{FDF6D054-70F1-4C2F-B7E6-9484E34472E8}.Release|x86.ActiveCfg = Release|Win32
 		{FDF6D054-70F1-4C2F-B7E6-9484E34472E8}.Release|x86.Build.0 = Release|Win32
+		{53D94356-ACE3-4AA5-9749-4A8285691026}.Debug|x64.ActiveCfg = Debug|x64
+		{53D94356-ACE3-4AA5-9749-4A8285691026}.Debug|x64.Build.0 = Debug|x64
+		{53D94356-ACE3-4AA5-9749-4A8285691026}.Debug|x86.ActiveCfg = Debug|Win32
+		{53D94356-ACE3-4AA5-9749-4A8285691026}.Debug|x86.Build.0 = Debug|Win32
+		{53D94356-ACE3-4AA5-9749-4A8285691026}.Release|x64.ActiveCfg = Release|x64
+		{53D94356-ACE3-4AA5-9749-4A8285691026}.Release|x64.Build.0 = Release|x64
+		{53D94356-ACE3-4AA5-9749-4A8285691026}.Release|x86.ActiveCfg = Release|Win32
+		{53D94356-ACE3-4AA5-9749-4A8285691026}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
