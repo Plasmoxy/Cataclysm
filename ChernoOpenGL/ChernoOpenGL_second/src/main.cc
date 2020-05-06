@@ -2,9 +2,16 @@
 
 */
 
+
 #include <iostream>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+
+static int CreateShader(const std::string& vShader, const std::string& fShader)
+{
+    GLuint program = glCreateProgram();   
+    return 0;
+}
 
 int main(void)
 {
