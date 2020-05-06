@@ -1,5 +1,5 @@
 /*
-UPDATE: vcpkg didn't work, linked manually
+
 */
 
 #include <iostream>
@@ -28,22 +28,29 @@ int main(void)
     if (glewInit() != GLEW_OK)
         std::cout << "GLEW init error." << std::endl;
     printf("GL version: %s\n", glGetString(GL_VERSION));
+    
+    // define vertices
+    float vertices[6] = {
+        -0.5f, -0.5f,
+         0.0f,  0.5f,
+         0.5f, -0.5f,
+    };
 
+    // create buffer
     GLuint buffer;
     glGenBuffers(1, &buffer);
     glBindBuffer(GL_ARRAY_BUFFER, buffer);
 
+    // give him the data
+    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), vertices, GL_STATIC_DRAW);
+    
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glBegin(GL_TRIANGLES);
-        glVertex2f(-0.5f, -0.5f);
-        glVertex2f( 0.0f,  0.5f);
-        glVertex2f( 0.5f, -0.5f);
-        glEnd();
+        glDrawArrays(GL_TRIANGLES, 0, 3);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
