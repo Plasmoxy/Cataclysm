@@ -47,14 +47,18 @@ int main(void)
     // This provides data layout for each vertex, while we have unknown amount
     // of vertices.
     // = 64 components per vertex
-    // eg. position atribute has = x and y = 2 components
+    // eg. position atribute has -> x and y -> 2 components
     // -> glVertexAttribPointer sets a SINGLE attribute of vertex
     // index = index of attribute (max 15)
     // size = count of components in the attribute
+    // type = data type of each component i.e. GL_FLOAT
+    // normalized = auto normalization
     // stride = complete byte size of a vertex (all attributes)
-    // pointer = pointer inside the specific attribute (offset from vertex beginning)
+    // pointer = ? byte offset to the attribute in the vertex (void*)
     // NOTE: to lay out data, use struct combined with offsetof macro
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), );
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
+    glEnableVertexAttribArray(0); // enable the attribute array (attribute) !!!
+
     
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -62,6 +66,7 @@ int main(void)
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // draw the current bound buffer in a specific drawing mode
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
         /* Swap front and back buffers */
