@@ -50,7 +50,7 @@ static GLuint CompileShader(GLuint type, const std::string& source)
 		int length; glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
 		
 		// alloc message array to stack, not heap
-		char* message = (char*)_malloca(length * sizeof(char));
+		char* message = (char*) _malloca(length * sizeof(char));
 		glGetShaderInfoLog(id, length, &length, message);
 		std::cout << "Failed to compile shader: " << std::endl;
 		std::cout << message << std::endl;
