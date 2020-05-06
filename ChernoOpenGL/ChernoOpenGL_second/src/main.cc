@@ -27,9 +27,11 @@ int main(void)
     glfwMakeContextCurrent(window);
     if (glewInit() != GLEW_OK)
         std::cout << "GLEW init error." << std::endl;
-    
-
     printf("GL version: %s\n", glGetString(GL_VERSION));
+
+    GLuint buffer;
+    glGenBuffers(1, &buffer);
+    glBindBuffer(GL_ARRAY_BUFFER, buffer);
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
@@ -47,7 +49,7 @@ int main(void)
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
-        glfwPollEvents();
+        glfwPollEvents();  
     }
 
     glfwTerminate();
