@@ -15,7 +15,6 @@
 #include <fmt/format.h>
 
 #include "TEST_SHADERS.h"
-#include "GLDebugMessageCallback.h"
 
 std::string tryReadFile(const std::string& filepath)
 {
@@ -80,14 +79,6 @@ GLuint createShaderProgram(const std::string& vertexSrc, const std::string& frag
 
     return program;
 }
-
-//void APIENTRY GLDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* msg, const void* data)
-//{
-//    if (severity != GL_DEBUG_SEVERITY_NOTIFICATION) {
-//        fmt::print("{:x} OpenGL Error (type = {:x}: {}\n", severity, type, msg);
-//    } 
-//}
-
 
 int main(void)
 {
@@ -192,9 +183,7 @@ int main(void)
 
         // draw current bound VBO using current bound IBO indices
         // note: indices paramter is an OFFSET of first index of currently bound GL_ELEMENT_ARRAY_BUFFER, not a pointer to some array 
-        glDrawElements(GL_TRIANGLES, 6, GL_INT, nullptr);
-
-        glClear(GL_COLOR_BUFFER_BIT);
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);

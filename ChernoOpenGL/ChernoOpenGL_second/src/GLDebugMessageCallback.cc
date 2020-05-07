@@ -20,7 +20,7 @@
 // 
 // For more information, please refer to <http://unlicense.org/>
 
-// =============== INIT DEBUG OUTPUT ================
+// =============== How to use ================
 // The following function calls should be made directly after OpenGL
 // initialization.
 
@@ -30,12 +30,13 @@
 // GL_DEBUG_OUTPUT_SYNCHRONUS - Callback is in sync with errors, so a breakpoint
 // can be placed on the callback in order to get a stacktrace for the GL error. (enable together with GL_DEBUG_OUTPUT !)
 
+// glEnable(GL_DEBUG_OUTPUT);
 // glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
 
 // Set the function that will be triggered by the callback, the second parameter
 // is the data parameter of the callback, it can be useful for different
 // contexts but isn't necessary for our simple use case.
-// glDebugMessageCallback(GLDebugMessageCallback, NULL);
+// glDebugMessageCallback(GLDebugMessageCallback, nullptr);
 
 // REQUIREMENTS: OpenGL version with the KHR_debug extension available.
 // (OpenGL 4.3+)
