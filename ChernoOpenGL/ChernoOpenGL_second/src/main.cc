@@ -171,6 +171,8 @@ int main(void)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    float r = 0.0f;
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -180,8 +182,11 @@ int main(void)
         // draw the current bound vertex buffer in a specific drawing mode
         // -> DOES NOT use any indices
         // glDrawArrays(GL_TRIANGLES, 0, 6);
-        glUniform4f(u_Color, 1.0f, 0.3f, 0.8f, 1.0f);
+        glUniform4f(u_Color, r, 0.3f, 0.8f, 1.0f);
         glUniform1f(u_Secs, clock() / (float) CLOCKS_PER_SEC);
+
+        if (r > 1.0f) r = 0.0f;
+        r += 0.05f;
 
         // draw current bound VBO using current bound IBO indices
         // note: indices paramter is an OFFSET of first index of currently bound GL_ELEMENT_ARRAY_BUFFER, not a pointer to some array 
