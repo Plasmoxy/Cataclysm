@@ -85,7 +85,7 @@ int main(void)
 {
     GLFWwindow* window;
 
-    /* Initialize the library */
+    /* Initialize GLFW */
     if (!glfwInit())
         return -1;
 
@@ -100,6 +100,9 @@ int main(void)
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
+    glfwSwapInterval(1); // vsync
+
+    // Init GLEW
     if (glewInit() != GLEW_OK)
         std::cout << "GLEW init error." << std::endl;
     printf("GL version: %s\n", glGetString(GL_VERSION));
@@ -190,7 +193,12 @@ int main(void)
 
         // draw current bound VBO using current bound IBO indices
         // note: indices paramter is an OFFSET of first index of currently bound GL_ELEMENT_ARRAY_BUFFER, not a pointer to some array 
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        glUniform4f(u_Color, r, 0.3f, 0.8f, 1.0f);
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (const void*)(3*sizeof(unsigned int)));
+
+        // example: ANOTHER draw call, it is not efficient to change uniforms and issue another draw call, that problem is solved by passing different values in VBO (but like 100 draws is fine)
+        glUniform4f(u_Color, 1.0f - r, 0.3f, 0.8f, 1.0f);
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, nullptr);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
