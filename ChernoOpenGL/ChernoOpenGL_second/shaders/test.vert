@@ -1,5 +1,6 @@
 #version 330 core
 
+// layout(location=0) means that this variable will be bound to attribute with index 0
 layout(location = 0) in vec2 position;
 uniform float u_Secs;
 

@@ -165,6 +165,7 @@ int main(void)
     );
     glUseProgram(testShader);
     GLint u_Secs = glGetUniformLocation(testShader, "u_Secs");
+    GLint u_Color = glGetUniformLocation(testShader, "u_Color");
 
     // Enable blending
     glEnable(GL_BLEND);
@@ -179,7 +180,7 @@ int main(void)
         // draw the current bound vertex buffer in a specific drawing mode
         // -> DOES NOT use any indices
         // glDrawArrays(GL_TRIANGLES, 0, 6);
-
+        glUniform4f(u_Color, 1.0f, 0.3f, 0.8f, 1.0f);
         glUniform1f(u_Secs, clock() / (float) CLOCKS_PER_SEC);
 
         // draw current bound VBO using current bound IBO indices
