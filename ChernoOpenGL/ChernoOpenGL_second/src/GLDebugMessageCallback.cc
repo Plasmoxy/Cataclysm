@@ -38,6 +38,7 @@
 // glDebugMessageCallback(GLDebugMessageCallback, NULL);
 
 // REQUIREMENTS: OpenGL version with the KHR_debug extension available.
+// (OpenGL 4.3+)
 // modified for C++ by Plasmoxy [7. 5. 2020], I'm using just GLEW and GLFW3
 // original gist: https://gist.github.com/liam-middlebrook/c52b069e4be2d87a6d2f
 // -> place breakpoint at the end bracket to get cause stack.
