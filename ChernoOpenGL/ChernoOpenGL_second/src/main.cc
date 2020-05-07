@@ -104,17 +104,36 @@ int main(void)
     printf("GL version: %s\n", glGetString(GL_VERSION));
     
     // define vertices
-    float vertices[6] = {
-        -0.5f, -0.5f,
-         0.0f,  0.5f,
-         0.5f, -0.5f,
+    float vertices[] = {
+        -0.5f, -0.5f, // index = 0
+         0.5f, -0.5f, // 1
+         0.5f,  0.5f, // 2
+        -0.5f,  0.5f, // 3
     };
 
-    // create buffer
-    GLuint buffer;
-    glGenBuffers(1, &buffer);
-    glBindBuffer(GL_ARRAY_BUFFER, buffer);
-    glBufferData(GL_ARRAY_BUFFER, 6 * sizeof(float), vertices, GL_STATIC_DRAW);
+    // define indexes = instructions on how to reuse vertices into drawing triangles
+    unsigned int indices[] = {
+        0, 1, 2, // first triangle
+        2, 3, 0, // second triangle
+    };
+
+    fmt::print("size = {}", sizeof(vertices));
+
+    // NOTE: GL_ARRAY_BUFFER and GL_ELEMENT_ARRAY_BUFFER are separate OpenGL
+    // binding targets (many types).
+    // NOTE: an opengl object inside GPU is often represented by its GLuint ID.
+    
+    // create vertex buffer object (vertex buffer)
+    GLuint vbo;
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo); // bind to a bind target before using!
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // create index buffer object
+    GLuint ibo;
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // Vertex attributes = how data inside v. buffer is modelled.
     // Typically the gpu provides max 16 4-component vertex attributes.
@@ -152,9 +171,14 @@ int main(void)
 
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-        
-        // draw the current bound buffer in a specific drawing mode
-        glDrawArrays(GL_TRIANGLES, 0, 3);
+
+        // draw the current bound vertex buffer in a specific drawing mode
+        // -> DOES NOT use any indices
+        // glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        // draw current bound VBO using current bound IBO indices
+        // note: indices paramter is an OFFSET of first index of currently bound GL_ELEMENT_ARRAY_BUFFER, not a pointer to some array
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
