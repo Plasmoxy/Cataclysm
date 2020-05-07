@@ -14,6 +14,7 @@
 #include <GLFW/glfw3.h>
 #include <fmt/format.h>
 
+#include "GLDebugMessageCallback.h"
 #include "TEST_SHADERS.h"
 
 std::string tryReadFile(const std::string& filepath)
@@ -103,7 +104,7 @@ int main(void)
         std::cout << "GLEW init error." << std::endl;
     printf("GL version: %s\n", glGetString(GL_VERSION));
 
-    // Error handling
+    // Callback error handling
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(GLDebugMessageCallback, nullptr);
@@ -191,9 +192,6 @@ int main(void)
         /* Poll for and process events */
         glfwPollEvents();
     }
-
-    // delete the shader at the end
-    glDeleteShader(testShader);
 
     glfwTerminate();
     return 0;
