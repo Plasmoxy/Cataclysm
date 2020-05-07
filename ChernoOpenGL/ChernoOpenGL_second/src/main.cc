@@ -8,15 +8,16 @@
 #include <ctime>
 #include <sstream>
 #include <fstream>
+#include <cassert>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <fmt/format.h>
 
 #include "TEST_SHADERS.h"
+#include "GLDebugMessageCallback.h"
 
-
-static std::string tryReadFile(const std::string& filepath)
+std::string tryReadFile(const std::string& filepath)
 {
     std::stringstream ss;
     std::ifstream fs(filepath);
@@ -28,7 +29,7 @@ static std::string tryReadFile(const std::string& filepath)
     return ss.str();
 }
 
-static GLuint compileShader(unsigned int type, const std::string& source)
+GLuint compileShader(unsigned int type, const std::string& source)
 {
     // create shader
     GLuint id = glCreateShader(type);
@@ -61,7 +62,7 @@ static GLuint compileShader(unsigned int type, const std::string& source)
     return id;
 }
 
-static GLuint createShaderProgram(const std::string& vertexSrc, const std::string& fragmentSrc)
+GLuint createShaderProgram(const std::string& vertexSrc, const std::string& fragmentSrc)
 {
     GLuint program = glCreateProgram();   
     GLuint vs = compileShader(GL_VERTEX_SHADER, vertexSrc);
@@ -79,6 +80,14 @@ static GLuint createShaderProgram(const std::string& vertexSrc, const std::strin
 
     return program;
 }
+
+//void APIENTRY GLDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* msg, const void* data)
+//{
+//    if (severity != GL_DEBUG_SEVERITY_NOTIFICATION) {
+//        fmt::print("{:x} OpenGL Error (type = {:x}: {}\n", severity, type, msg);
+//    } 
+//}
+
 
 int main(void)
 {
@@ -102,6 +111,11 @@ int main(void)
     if (glewInit() != GLEW_OK)
         std::cout << "GLEW init error." << std::endl;
     printf("GL version: %s\n", glGetString(GL_VERSION));
+
+    // Error handling
+    glEnable(GL_DEBUG_OUTPUT);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    glDebugMessageCallback(GLDebugMessageCallback, nullptr);
     
     // define vertices
     float vertices[] = {
@@ -113,12 +127,11 @@ int main(void)
 
     // define indexes = instructions on how to reuse vertices into drawing triangles
     // (also called elements)
+    // NOTE: make sure this is always an unsigned int[] !!!
     unsigned int indices[] = {
         0, 1, 2, // first triangle
         2, 3, 0, // second triangle
     };
-
-    fmt::print("size = {}", sizeof(vertices));
 
     // NOTE: GL_ARRAY_BUFFER and GL_ELEMENT_ARRAY_BUFFER are separate OpenGL
     // binding targets (many types).
@@ -178,14 +191,16 @@ int main(void)
         // glDrawArrays(GL_TRIANGLES, 0, 6);
 
         // draw current bound VBO using current bound IBO indices
-        // note: indices paramter is an OFFSET of first index of currently bound GL_ELEMENT_ARRAY_BUFFER, not a pointer to some array
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
+        // note: indices paramter is an OFFSET of first index of currently bound GL_ELEMENT_ARRAY_BUFFER, not a pointer to some array 
+        glDrawElements(GL_TRIANGLES, 6, GL_INT, nullptr);
+
+        glClear(GL_COLOR_BUFFER_BIT);
 
         /* Swap front and back buffers */
         glfwSwapBuffers(window);
 
         /* Poll for and process events */
-        glfwPollEvents();  
+        glfwPollEvents();
     }
 
     // delete the shader at the end

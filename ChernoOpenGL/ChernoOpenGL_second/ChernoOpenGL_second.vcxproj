@@ -144,9 +144,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\GLDebugMessageCallback.cc" />
     <ClCompile Include="src\main.cc" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\GLDebugMessageCallback.h" />
     <ClInclude Include="src\TEST_SHADERS.h" />
   </ItemGroup>
   <ItemGroup>
