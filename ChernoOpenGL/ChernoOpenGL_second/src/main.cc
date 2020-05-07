@@ -112,6 +112,7 @@ int main(void)
     };
 
     // define indexes = instructions on how to reuse vertices into drawing triangles
+    // (also called elements)
     unsigned int indices[] = {
         0, 1, 2, // first triangle
         2, 3, 0, // second triangle
