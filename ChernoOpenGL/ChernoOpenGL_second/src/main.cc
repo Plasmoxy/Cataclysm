@@ -5,11 +5,28 @@
 
 #include <iostream>
 #include <string>
+#include <ctime>
+#include <sstream>
+#include <fstream>
+
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <fmt/format.h>
-#include <ctime>
+
 #include "TEST_SHADERS.h"
+
+
+static std::string tryLoadFile(const std::string& filepath)
+{
+    std::stringstream ss;
+    std::ifstream fs(filepath);
+    if (!fs) {
+        fmt::print("Error loading file: {}\n", filepath);
+        return "";
+    }
+    ss << fs.rdbuf();
+    return ss.str();
+}
 
 static GLuint compileShader(unsigned int type, const std::string& source)
 {
@@ -44,11 +61,11 @@ static GLuint compileShader(unsigned int type, const std::string& source)
     return id;
 }
 
-static GLuint createShaderProgram(const std::string& vShader, const std::string& fShader)
+static GLuint createShaderProgram(const std::string& vertexSrc, const std::string& fragmentSrc)
 {
     GLuint program = glCreateProgram();   
-    GLuint vs = compileShader(GL_VERTEX_SHADER, vShader);
-    GLuint fs = compileShader(GL_FRAGMENT_SHADER, fShader);
+    GLuint vs = compileShader(GL_VERTEX_SHADER, vertexSrc);
+    GLuint fs = compileShader(GL_FRAGMENT_SHADER, fragmentSrc);
 
     // attach and link shaders to the program
     glAttachShader(program, vs);
@@ -117,14 +134,17 @@ int main(void)
     glEnableVertexAttribArray(0); // enable the attribute array (attribute) !!!
 
     // Shaders config
-    GLuint shader = createShaderProgram(VSHADER_BASIC, FSHADER_BASIC);
-    GLint uniTimeSeconds = glGetUniformLocation(shader, "timeSeconds");
-    glUseProgram(shader);
+    GLuint testShader = createShaderProgram(
+        tryLoadFile("shaders/test.vert"),
+        tryLoadFile("shaders/test.frag")
+    );
+    GLint uniTimeSeconds = glGetUniformLocation(testShader, "timeSeconds");
+    glUseProgram(testShader);
 
     // Enable blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
+
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
@@ -144,7 +164,7 @@ int main(void)
     }
 
     // delete the shader at the end
-    glDeleteShader(shader);
+    glDeleteShader(testShader);
 
     glfwTerminate();
     return 0;
