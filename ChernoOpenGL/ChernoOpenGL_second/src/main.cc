@@ -4,13 +4,63 @@
 
 
 #include <iostream>
+#include <string>
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <fmt/format.h>
+#include <ctime>
+#include "SHADERS.h"
 
-static int CreateShader(const std::string& vShader, const std::string& fShader)
+static GLuint CompileShader(unsigned int type, const std::string& source)
+{
+    // create shader
+    GLuint id = glCreateShader(type);
+    const char* src = source.c_str();
+
+    // specify shader source for created shader and compile it
+    glShaderSource(id, 1, &src, nullptr); //length=NULL means source is null-terminated
+    glCompileShader(id);
+
+    // handle compilation errors
+    int result;
+    glGetShaderiv(id, GL_COMPILE_STATUS, &result); // returns parameter from shader obj
+    if (result == GL_FALSE){
+        int length;
+        glGetShaderiv(id, GL_INFO_LOG_LENGTH, &length);
+
+        char* message = new char[length];
+        glGetShaderInfoLog(id, length, &length, message);
+
+        fmt::print("Failed to compile {} shader:\n{}\n",
+            (type == GL_VERTEX_SHADER ? "vertex" : "fragment"),
+            message
+        );
+
+        glDeleteShader(id); // delete it
+        delete[] message;
+        return 0; // 0 = failure
+    }
+
+    return id;
+}
+
+static GLuint CreateShader(const std::string& vShader, const std::string& fShader)
 {
     GLuint program = glCreateProgram();   
-    return 0;
+    GLuint vs = CompileShader(GL_VERTEX_SHADER, vShader);
+    GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fShader);
+
+    // attach and link shaders to the program
+    glAttachShader(program, vs);
+    glAttachShader(program, fs);
+    glLinkProgram(program);
+    glValidateProgram(program);
+
+    // they are linked to the program, we can delete them from memory
+    glDeleteShader(vs);
+    glDeleteShader(fs);
+
+    return program;
 }
 
 int main(void)
@@ -66,13 +116,23 @@ int main(void)
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
     glEnableVertexAttribArray(0); // enable the attribute array (attribute) !!!
 
+    // Shader config
+    GLuint shader = CreateShader(VSHADER_BASIC, FSHADER_BASIC);
+    GLint uniTimeSeconds = glGetUniformLocation(shader, "timeSeconds");
+    glUseProgram(shader);
+
+    // ??? blending
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
+        glUniform1f(uniTimeSeconds, clock() / (float)CLOCKS_PER_SEC);
+
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
-
+        
         // draw the current bound buffer in a specific drawing mode
         glDrawArrays(GL_TRIANGLES, 0, 3);
 
@@ -82,6 +142,9 @@ int main(void)
         /* Poll for and process events */
         glfwPollEvents();  
     }
+
+    // delete the shader at the end
+    glDeleteShader(shader);
 
     glfwTerminate();
     return 0;
