@@ -41,7 +41,6 @@
 // (OpenGL 4.3+)
 // modified for C++ by Plasmoxy [7. 5. 2020], I'm using just GLEW and GLFW3
 // original gist: https://gist.github.com/liam-middlebrook/c52b069e4be2d87a6d2f
-// -> place breakpoint at the end bracket to get cause stack.
 
 #include "GLDebugMessageCallback.h"
 
@@ -141,8 +140,8 @@ void APIENTRY GLDebugMessageCallback(GLenum source, GLenum type, GLuint id,
     }
 
     // ignore notification severity (you can add your own ignores)
-    // Adds __debugbreak if _DEBUG is defined
-    // note: __debugbrek is specific for MSVC, won't work with gcc/clang
+    // + Adds __debugbreak if _DEBUG is defined (automatic in visual studio)
+    // note: __debugbreak is specific for MSVC, won't work with gcc/clang
     // -> in that case remove it and manually set breakpoints
     if (_severity != "NOTIFICATION") {
         printf("OpenGL error [%d]: %s of %s severity, raised from %s: %s\n",
