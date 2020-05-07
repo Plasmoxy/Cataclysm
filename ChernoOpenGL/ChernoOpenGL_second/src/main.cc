@@ -163,8 +163,8 @@ int main(void)
         tryReadFile("shaders/test.vert"),
         tryReadFile("shaders/test.frag")
     );
-    GLint uniTimeSeconds = glGetUniformLocation(testShader, "timeSeconds");
     glUseProgram(testShader);
+    GLint u_Secs = glGetUniformLocation(testShader, "u_Secs");
 
     // Enable blending
     glEnable(GL_BLEND);
@@ -173,14 +173,14 @@ int main(void)
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
-        glUniform1f(uniTimeSeconds, clock() / (float)CLOCKS_PER_SEC);
-
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
         // draw the current bound vertex buffer in a specific drawing mode
         // -> DOES NOT use any indices
         // glDrawArrays(GL_TRIANGLES, 0, 6);
+
+        glUniform1f(u_Secs, clock() / (float) CLOCKS_PER_SEC);
 
         // draw current bound VBO using current bound IBO indices
         // note: indices paramter is an OFFSET of first index of currently bound GL_ELEMENT_ARRAY_BUFFER, not a pointer to some array 
