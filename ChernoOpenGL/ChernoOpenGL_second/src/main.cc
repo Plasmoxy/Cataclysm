@@ -11,7 +11,7 @@
 #include <ctime>
 #include "TEST_SHADERS.h"
 
-static GLuint CompileShader(unsigned int type, const std::string& source)
+static GLuint compileShader(unsigned int type, const std::string& source)
 {
     // create shader
     GLuint id = glCreateShader(type);
@@ -44,11 +44,11 @@ static GLuint CompileShader(unsigned int type, const std::string& source)
     return id;
 }
 
-static GLuint CreateShader(const std::string& vShader, const std::string& fShader)
+static GLuint createShaderProgram(const std::string& vShader, const std::string& fShader)
 {
     GLuint program = glCreateProgram();   
-    GLuint vs = CompileShader(GL_VERTEX_SHADER, vShader);
-    GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fShader);
+    GLuint vs = compileShader(GL_VERTEX_SHADER, vShader);
+    GLuint fs = compileShader(GL_FRAGMENT_SHADER, fShader);
 
     // attach and link shaders to the program
     glAttachShader(program, vs);
@@ -117,7 +117,7 @@ int main(void)
     glEnableVertexAttribArray(0); // enable the attribute array (attribute) !!!
 
     // Shaders config
-    GLuint shader = CreateShader(VSHADER_BASIC, FSHADER_BASIC);
+    GLuint shader = createShaderProgram(VSHADER_BASIC, FSHADER_BASIC);
     GLint uniTimeSeconds = glGetUniformLocation(shader, "timeSeconds");
     glUseProgram(shader);
 
