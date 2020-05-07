@@ -116,12 +116,12 @@ int main(void)
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
     glEnableVertexAttribArray(0); // enable the attribute array (attribute) !!!
 
-    // Shader config
+    // Shaders config
     GLuint shader = CreateShader(VSHADER_BASIC, FSHADER_BASIC);
     GLint uniTimeSeconds = glGetUniformLocation(shader, "timeSeconds");
     glUseProgram(shader);
 
-    // ??? blending
+    // Enable blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
