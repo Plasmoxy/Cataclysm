@@ -20,7 +20,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\SHADERS.h">
+    <ClInclude Include="src\TEST_SHADERS.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

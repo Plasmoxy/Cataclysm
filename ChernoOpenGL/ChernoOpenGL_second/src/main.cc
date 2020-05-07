@@ -9,7 +9,7 @@
 #include <GLFW/glfw3.h>
 #include <fmt/format.h>
 #include <ctime>
-#include "SHADERS.h"
+#include "TEST_SHADERS.h"
 
 static GLuint CompileShader(unsigned int type, const std::string& source)
 {
