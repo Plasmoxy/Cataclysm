@@ -16,7 +16,7 @@
 #include "TEST_SHADERS.h"
 
 
-static std::string tryLoadFile(const std::string& filepath)
+static std::string tryReadFile(const std::string& filepath)
 {
     std::stringstream ss;
     std::ifstream fs(filepath);
@@ -135,8 +135,8 @@ int main(void)
 
     // Shaders config
     GLuint testShader = createShaderProgram(
-        tryLoadFile("shaders/test.vert"),
-        tryLoadFile("shaders/test.frag")
+        tryReadFile("shaders/test.vert"),
+        tryReadFile("shaders/test.frag")
     );
     GLint uniTimeSeconds = glGetUniformLocation(testShader, "timeSeconds");
     glUseProgram(testShader);
