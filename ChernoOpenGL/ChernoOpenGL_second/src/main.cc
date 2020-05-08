@@ -83,28 +83,19 @@ GLuint createShaderProgram(const std::string& vertexSrc, const std::string& frag
 
 int main(void)
 {
-    GLFWwindow* window;
-
     /* Initialize GLFW */
-    if (!glfwInit())
-        return -1;
+    if (!glfwInit()) return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
-
-    if (!window)
-    {
-        glfwTerminate();
-        return -1;
-    }
+    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    if (!window) { glfwTerminate(); return -1; }
 
     /* Make the window's context current */
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // vsync
 
     // Init GLEW
-    if (glewInit() != GLEW_OK)
-        std::cout << "GLEW init error." << std::endl;
+    if (glewInit() != GLEW_OK) fmt::print("GLEW init error");
     printf("GL version: %s\n", glGetString(GL_VERSION));
 
     // Callback error handling
@@ -114,35 +105,25 @@ int main(void)
     
     // define vertices
     float vertices[] = {
-        -0.5f, -0.5f, // index = 0
-         0.5f, -0.5f, // 1
-         0.5f,  0.5f, // 2
-        -0.5f,  0.5f, // 3
+        -0.5f, -0.5f,
+         0.5f, -0.5f,
+         0.5f,  0.5f,
+        -0.5f,  0.5f,
     };
 
     // define indexes = instructions on how to reuse vertices into drawing triangles
     // (also called elements)
     // NOTE: make sure this is always an unsigned int[] !!!
     unsigned int indices[] = {
-        0, 1, 2, // first triangle
-        2, 3, 0, // second triangle
+        0, 1, 2,
+        2, 3, 0,
     };
-
-    // NOTE: GL_ARRAY_BUFFER and GL_ELEMENT_ARRAY_BUFFER are separate OpenGL
-    // binding targets (many types).
-    // NOTE: an opengl object inside GPU is often represented by its GLuint ID.
     
-    // create vertex buffer object (vertex buffer)
+    // create vertex buffer object (vertex buffer) from vertices[]
     GLuint vbo;
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo); // bind to a bind target before using!
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    // create index buffer object
-    GLuint ibo;
-    glGenBuffers(1, &ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // Vertex attributes = how data inside v. buffer is modelled.
     // Typically the gpu provides max 16 4-component vertex attributes.
@@ -158,8 +139,20 @@ int main(void)
     // stride = complete byte size of a vertex (all attributes)
     // pointer = ? byte offset to the attribute in the vertex (void*)
     // NOTE: to lay out data, use struct combined with offsetof macro
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
+    // IMPORTANT: VertexAttribArray is not bound to a specific buffer!!
+    // a.k.a. you need to change the layout (attrib array) each time you want
+    // to access a buffer -> it is tied to Vertex Array Object not Vertex Buffer Object
     glEnableVertexAttribArray(0); // enable the attribute array (attribute) !!!
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
+
+    // create index buffer object from indices[]
+    // NOTE: GL_ARRAY_BUFFER and GL_ELEMENT_ARRAY_BUFFER are separate OpenGL
+    // binding targets (many types).
+    // NOTE: an opengl object inside GPU is often represented by its GLuint ID.
+    GLuint ibo;
+    glGenBuffers(1, &ibo);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // Shaders config
     GLuint testShader = createShaderProgram(
@@ -174,18 +167,39 @@ int main(void)
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+
+    // UNBIND everything (for demo purposes)
+    glUseProgram(0);
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
     float r = 0.0f;
+    double xpos, ypos;
+    int width, height;
 
     /* Loop until the user closes the window */
     while (!glfwWindowShouldClose(window))
     {
+        glfwGetCursorPos(window, &xpos, &ypos);
+        glfwGetWindowSize(window, &width, &height);
+        // fmt::print("mouse[{} {}] win[{} {}]\n", xpos, ypos, width, height);
+
         /* Render here */
         glClear(GL_COLOR_BUFFER_BIT);
 
+        // Example:
         // draw the current bound vertex buffer in a specific drawing mode
         // -> DOES NOT use any indices
         // glDrawArrays(GL_TRIANGLES, 0, 6);
-        glUniform4f(u_Color, r, 0.3f, 0.8f, 1.0f);
+
+        // bind stuff that we're gonna use + set the layout (vertex attrib)
+        glUseProgram(testShader);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+        glEnableVertexAttribArray(0);
+        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+        
+
         glUniform1f(u_Secs, clock() / (float) CLOCKS_PER_SEC);
 
         if (r > 1.0f) r = 0.0f;
