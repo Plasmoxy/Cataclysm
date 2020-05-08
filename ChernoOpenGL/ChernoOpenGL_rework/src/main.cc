@@ -86,7 +86,7 @@ int main(void)
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
-    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", nullptr, nullptr);
     if (!window) { glfwTerminate(); return -1; }
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // vsync
@@ -99,11 +99,11 @@ int main(void)
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(GLDebugMessageCallback, nullptr);
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     // data...
-
     float vertices[] = {
         -0.5f, -0.5f,
          0.5f, -0.5f,
@@ -114,22 +114,31 @@ int main(void)
         0, 1, 2,
         2, 3, 0,
     };
+
+    // VAO
     GLuint vao;
     glGenVertexArrays(1, &vao);
+    glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
+    fmt::print("main VAO = {}\n", vao);
 
+    // VBO (slot GL_ARRAY_BUFFER) -> VAO
     GLuint vbo;
     glGenBuffers(1, &vbo);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    fmt::print("main VBO = {}\n", vbo);
 
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
-
+    // IBO (slot GL_ELEMENT_ARRAY_BUFFER) -> VAO
     GLuint ibo;
     glGenBuffers(1, &ibo);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+    fmt::print("main IBO = {}\n", ibo);
+
+    // Enable attrib array in VAO and set its layout
+    glEnableVertexAttribArray(0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
     GLuint testShader = createShaderProgram(
         tryReadFile("shaders/test.vert"),
@@ -138,8 +147,7 @@ int main(void)
     GLint u_Secs = glGetUniformLocation(testShader, "u_Secs");
     GLint u_Color = glGetUniformLocation(testShader, "u_Color");
 
-
-    // unbind
+    // unbind all
     glBindVertexArray(0);
     glUseProgram(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -163,9 +171,16 @@ int main(void)
         glUniform4f(u_Color, r, 0.3f, 0.8f, 1.0f);
 
         glBindVertexArray(vao);
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, nullptr);
 
+        glUniform4f(u_Color, r, 0.3f, 0.8f, 1.0f);
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(0));
+
+        glUniform4f(u_Color, 1 - r, 0.3f, 0.8f, 1.0f);
+        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(3 * 4));
+
+        /*GLint varrayid;
+        glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &varrayid);
+        fmt::print("current vao = {}\n", varrayid);*/
 
         glfwSwapBuffers(window);
         glfwPollEvents();
