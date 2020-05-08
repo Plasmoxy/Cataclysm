@@ -125,7 +125,13 @@ int main(void)
 
     // create and bind VAO (see below)
     // -> IMPORTANT: binding VBO and IBO binds them into current bound VAO
-    // a.k.a. VAO stores VBO and IBO
+    // a.k.a. VAO can store VBO and IBO
+    // default VAO = Gluint ID = 0, not sure if it exists in CORE profile
+    /*
+    === How VAO autosaves === ? not sure
+    - glVertexAttribPointer -> saves Attribute layout and GL_ARRAY_BUFFER to current VAO, but not GL_ELEMENT_ARRAY_BUFFER
+    - glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ...) -> saves element buffer to current VAO
+    */
     GLuint vao;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
