@@ -86,6 +86,10 @@ int main(void)
     /* Initialize GLFW */
     if (!glfwInit()) return -1;
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+
     /* Create a windowed mode window and its OpenGL context */
     GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
     if (!window) { glfwTerminate(); return -1; }
@@ -118,6 +122,11 @@ int main(void)
         0, 1, 2,
         2, 3, 0,
     };
+
+    // create and bind VAO (see below)
+    GLuint vao;
+    glGenVertexArrays(1, &vao);
+    glBindVertexArray(vao);
     
     // create vertex buffer object (vertex buffer) from vertices[]
     GLuint vbo;
@@ -139,9 +148,11 @@ int main(void)
     // stride = complete byte size of a vertex (all attributes)
     // pointer = ? byte offset to the attribute in the vertex (void*)
     // NOTE: to lay out data, use struct combined with offsetof macro
-    // IMPORTANT: VertexAttribArray is not bound to a specific buffer!!
-    // a.k.a. you need to change the layout (attrib array) each time you want
-    // to access a buffer -> it is tied to Vertex Array Object not Vertex Buffer Object
+    // by default, Vertex Array Object (VAO) at idx 0 is created automatically
+    // (only in GL-compatibility profile, not in GL core profile)
+    // -> if we don't have VAO bound currently, we can get INVALID OPERATION error
+    // IMPORTANT: glVertexAttribPointer binds current VAO and VBO !!!
+    // "index 0 of current VAO is now bound to current VBO (GL_ARRAY_BUFFER)"
     glEnableVertexAttribArray(0); // enable the attribute array (attribute) !!!
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
 
@@ -159,7 +170,6 @@ int main(void)
         tryReadFile("shaders/test.vert"),
         tryReadFile("shaders/test.frag")
     );
-    glUseProgram(testShader);
     GLint u_Secs = glGetUniformLocation(testShader, "u_Secs");
     GLint u_Color = glGetUniformLocation(testShader, "u_Color");
 
@@ -169,6 +179,7 @@ int main(void)
 
 
     // UNBIND everything (for demo purposes)
+    glBindVertexArray(0);
     glUseProgram(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
@@ -192,13 +203,10 @@ int main(void)
         // -> DOES NOT use any indices
         // glDrawArrays(GL_TRIANGLES, 0, 6);
 
-        // bind stuff that we're gonna use + set the layout (vertex attrib)
+        // bind stuff that we're gonna use
         glUseProgram(testShader);
-        glBindBuffer(GL_ARRAY_BUFFER, vbo);
+        glBindVertexArray(vao);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-        glEnableVertexAttribArray(0);
-        glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
-        
 
         glUniform1f(u_Secs, clock() / (float) CLOCKS_PER_SEC);
 
