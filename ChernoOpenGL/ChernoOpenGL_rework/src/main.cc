@@ -77,8 +77,8 @@ GLuint createShaderProgram(const std::string& vertexSrc, const std::string& frag
     return program;
 }
 
-int main(void)
-{
+int main(void) {
+
     /* Initialize GLFW */
     if (!glfwInit()) return -1;
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
