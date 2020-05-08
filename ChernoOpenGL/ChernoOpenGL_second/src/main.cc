@@ -124,6 +124,8 @@ int main(void)
     };
 
     // create and bind VAO (see below)
+    // -> IMPORTANT: binding VBO and IBO binds them into current bound VAO
+    // a.k.a. VAO stores VBO and IBO
     GLuint vao;
     glGenVertexArrays(1, &vao);
     glBindVertexArray(vao);
@@ -138,10 +140,10 @@ int main(void)
     // Typically the gpu provides max 16 4-component vertex attributes.
     // This provides data layout for each vertex, while we have unknown amount
     // of vertices.
-    // = 64 components per vertex
+    // VAO stores these attributes.
     // eg. position atribute has -> x and y -> 2 components
     // -> glVertexAttribPointer sets a SINGLE attribute of vertex
-    // index = index of attribute (max 15)
+    // index = index of attribute ???
     // size = count of components in the attribute
     // type = data type of each component i.e. GL_FLOAT
     // normalized = auto normalization
@@ -153,6 +155,13 @@ int main(void)
     // -> if we don't have VAO bound currently, we can get INVALID OPERATION error
     // IMPORTANT: glVertexAttribPointer binds current VAO and VBO !!!
     // "index 0 of current VAO is now bound to current VBO (GL_ARRAY_BUFFER)"
+    // (sets layout of first attrib)
+    // ? VAO contains AttribArrays (attribute configurations) at different indexes
+    // here we enable first AttribArray and set its layout
+    // therefore it is saved inside our currently bound VAO
+    // -> so we don't have to specify layout everytime before draw but just
+    // save the layout to the GPU in different VAOs and just bind a VAO you
+    // want to use.
     glEnableVertexAttribArray(0); // enable the attribute array (attribute) !!!
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), 0);
 
@@ -203,12 +212,13 @@ int main(void)
         // -> DOES NOT use any indices
         // glDrawArrays(GL_TRIANGLES, 0, 6);
 
-        // bind stuff that we're gonna use
+        // shader program config
         glUseProgram(testShader);
+        glUniform1f(u_Secs, clock() / (float)CLOCKS_PER_SEC);
+
+        // bind stuff we're gonna use
         glBindVertexArray(vao);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-
-        glUniform1f(u_Secs, clock() / (float) CLOCKS_PER_SEC);
 
         if (r > 1.0f) r = 0.0f;
         r += 0.05f;
