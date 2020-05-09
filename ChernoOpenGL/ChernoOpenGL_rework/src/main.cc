@@ -14,6 +14,7 @@
 #include "Renderer.h"
 #include "VertexBuffer.h"
 #include "IndexBuffer.h"
+#include "VertexArray.h"
 
 std::string tryReadFile(const std::string& filepath)
 {
@@ -93,6 +94,7 @@ int main(void) {
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // vsync
 
+
     // Init GLEW
     if (glewInit() != GLEW_OK) fmt::print("GLEW init error");
     printf("GL version: %s\n", glGetString(GL_VERSION));
@@ -119,21 +121,19 @@ int main(void) {
 
     
     // VAO
-    GLuint vao;
-    glGenVertexArrays(1, &vao);
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-    fmt::print("main VAO = {}\n", vao);
+    VertexArray va;
 
     // VBO -> VAO
-    VertexBuffer vb(vertices, sizeof(vertices));
+    VertexBuffer* vb = new VertexBuffer(vertices, sizeof(vertices));
 
     // IBO (slot GL_ELEMENT_ARRAY_BUFFER) -> VAO
-    IndexBuffer ib(indices, 6);
+    va.bind(); // TODO: bind IBO inside VertexArray class
+    IndexBuffer* ib = new IndexBuffer(indices, 6);
 
-    // Enable attrib array in VAO and set its layout
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
+    // layout
+    VertexBufferLayout layout;
+    layout.addAttrib(GL_FLOAT, 2);
+    va.addBuffer(*vb, layout);
 
     GLuint testShader = createShaderProgram(
         tryReadFile("shaders/red.vert"),
@@ -154,6 +154,8 @@ int main(void) {
     double xpos, ypos;
     int width, height;
 
+
+
     while (!glfwWindowShouldClose(window))
     {
         glfwGetCursorPos(window, &xpos, &ypos);
@@ -167,7 +169,7 @@ int main(void) {
         glUniform1f(u_Secs, clock() / (float)CLOCKS_PER_SEC);
         glUniform4f(u_Color, r, 0.3f, 0.8f, 1.0f);
 
-        glBindVertexArray(vao);
+        va.bind();
 
         glUniform4f(u_Color, r, 0.3f, 0.8f, 1.0f);
         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(0));
@@ -182,6 +184,9 @@ int main(void) {
         glfwSwapBuffers(window);
         glfwPollEvents();
     }
+
+    delete vb;
+    delete ib;
 
     glfwTerminate();
     return 0;

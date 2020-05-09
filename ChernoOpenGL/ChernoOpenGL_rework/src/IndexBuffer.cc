@@ -8,6 +8,7 @@ IndexBuffer::IndexBuffer(unsigned int* data, unsigned int count) : count(count) 
 
 }
 
+// achtung: should be destructed BEFORE glfwTerminate()
 IndexBuffer::~IndexBuffer() {
     glDeleteBuffers(1, &rendererId);
 }

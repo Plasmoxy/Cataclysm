@@ -145,9 +145,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\GLDebugMessageCallback.cc" />
-    <ClCompile Include="src\IndexBuffer.cpp" />
+    <ClCompile Include="src\IndexBuffer.cc" />
     <ClCompile Include="src\main.cc" />
     <ClCompile Include="src\Renderer.cc" />
+    <ClCompile Include="src\VertexArray.cc" />
     <ClCompile Include="src\VertexBuffer.cc" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\stuff\TEST_SHADERS.h" />
+    <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>

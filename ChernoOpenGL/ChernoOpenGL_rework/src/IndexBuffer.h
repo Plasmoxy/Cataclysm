@@ -4,8 +4,8 @@
 
 class IndexBuffer {
 public:
-	unsigned int rendererId; // id inside the renderer
-	unsigned int count;
+	GLuint rendererId = 0; // id inside the renderer (in our case OpenGL)
+	unsigned int count = 0;
 
 	IndexBuffer(unsigned int* data, unsigned int count);
 	~IndexBuffer();

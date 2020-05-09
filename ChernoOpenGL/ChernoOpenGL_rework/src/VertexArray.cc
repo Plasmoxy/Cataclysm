@@ -1,0 +1,42 @@
+
+#include <GL/glew.h>
+#include "VertexArray.h"
+
+VertexArray::VertexArray() {
+	glGenVertexArrays(1, &rendererId);
+}
+
+VertexArray::~VertexArray() {
+	glDeleteVertexArrays(1, &rendererId);
+}
+
+void VertexArray::addBuffer(const VertexBuffer& vertexbf,
+							const VertexBufferLayout& layout) {
+	bind();
+	vertexbf.bind();
+	
+	const auto& attribs = layout.attributes;
+	unsigned int offset = 0;
+
+	for (unsigned int i = 0; i < attribs.size(); i++) {
+		const auto& attr = attribs[i];
+
+		// Enable this attrib array in VAO and set its layout
+		glEnableVertexAttribArray(i);
+		glVertexAttribPointer(i, attr.componentCount, attr.type, attr.normalized,
+							  layout.stride, (const void*) offset);
+
+		// increase offset by bytesize of specified attribute
+		// we have to recalculate this again because we need incremental
+		// offsets every iteration
+		offset += attr.componentCount * VertexAttribute::getSizeOfGLType(attr.type);
+	}
+}
+
+void VertexArray::bind() const {
+	glBindVertexArray(rendererId);
+}
+
+void VertexArray::unbind() const {
+	glBindVertexArray(0);
+}
