@@ -147,8 +147,8 @@
     <ClCompile Include="src\GLDebugMessageCallback.cc" />
     <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\main.cc" />
-    <ClCompile Include="src\Renderer.cpp" />
-    <ClCompile Include="src\VertexBuffer.cpp" />
+    <ClCompile Include="src\Renderer.cc" />
+    <ClCompile Include="src\VertexBuffer.cc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLDebugMessageCallback.h" />

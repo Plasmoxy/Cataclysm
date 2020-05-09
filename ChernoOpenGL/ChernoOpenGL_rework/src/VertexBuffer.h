@@ -3,9 +3,9 @@
 #include <GL/glew.h>
 
 class VertexBuffer {
-private:
-	GLuint rendererId; // id inside the renderer
 public:
+	unsigned int rendererId; // id inside the renderer
+
 	VertexBuffer(const void* data, unsigned int size);
 	~VertexBuffer();
 

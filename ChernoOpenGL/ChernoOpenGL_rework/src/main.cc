@@ -117,6 +117,7 @@ int main(void) {
         2, 3, 0,
     };
 
+    
     // VAO
     GLuint vao;
     glGenVertexArrays(1, &vao);
@@ -124,7 +125,7 @@ int main(void) {
     glBindVertexArray(vao);
     fmt::print("main VAO = {}\n", vao);
 
-    // VBO
+    // VBO -> VAO
     VertexBuffer vb(vertices, sizeof(vertices));
 
     // IBO (slot GL_ELEMENT_ARRAY_BUFFER) -> VAO
@@ -141,11 +142,13 @@ int main(void) {
     GLint u_Secs = glGetUniformLocation(testShader, "u_Secs");
     GLint u_Color = glGetUniformLocation(testShader, "u_Color");
 
-    // unbind all
+    // unbind all, imporant: unbind VAO first because
+    // binding VBO and IBO also links them to VAO
     glBindVertexArray(0);
-    glUseProgram(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glUseProgram(0);
+    
 
     float r = 0.0f;
     double xpos, ypos;
