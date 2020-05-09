@@ -118,7 +118,6 @@ int main(void) {
         0, 1, 2,
         2, 3, 0,
     };
-
     
     // VAO
     VertexArray va;
@@ -132,7 +131,7 @@ int main(void) {
 
     // layout
     VertexBufferLayout layout;
-    layout.addAttrib(GL_FLOAT, 2);
+    layout.addAttrib<float>(2);
     va.addBuffer(*vb, layout);
 
     GLuint testShader = createShaderProgram(
@@ -153,8 +152,6 @@ int main(void) {
     float r = 0.0f;
     double xpos, ypos;
     int width, height;
-
-
 
     while (!glfwWindowShouldClose(window))
     {

@@ -29,14 +29,29 @@ public:
 
 	VertexBufferLayout() = default;
 
-	// attribType for example is GL_FLOAT etc.
 	// componentCount = how many components of this type there are
 	// within this attribute
-	void addAttrib(GLuint type, unsigned int componentCount) {
-		auto normalize = type == GL_UNSIGNED_BYTE;
-		attributes.push_back({type, componentCount, normalize});
-		stride += componentCount * VertexAttribute::getSizeOfGLType(type);
+	template <typename T>
+	void addAttrib(unsigned int componentCount);
+
+	template<>
+	void addAttrib<float>(unsigned int componentCount) {
+		attributes.push_back({ GL_FLOAT, componentCount, false });
+		stride += componentCount * VertexAttribute::getSizeOfGLType(GL_FLOAT);
 	}
+
+	template<>
+	void addAttrib<unsigned int>(unsigned int componentCount) {
+		attributes.push_back({ GL_UNSIGNED_INT, componentCount, false });
+		stride += componentCount * VertexAttribute::getSizeOfGLType(GL_UNSIGNED_INT);
+	}
+
+	template<>
+	void addAttrib<unsigned char>(unsigned int componentCount) {
+		attributes.push_back({ GL_UNSIGNED_BYTE, componentCount, false });
+		stride += componentCount * VertexAttribute::getSizeOfGLType(GL_UNSIGNED_BYTE);
+	}
+
 };
 
 class VertexArray {
