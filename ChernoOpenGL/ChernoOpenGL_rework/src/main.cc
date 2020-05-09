@@ -11,7 +11,9 @@
 #include <fmt/format.h>
 
 #include "GLDebugMessageCallback.h"
-
+#include "Renderer.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 std::string tryReadFile(const std::string& filepath)
 {
@@ -122,13 +124,11 @@ int main(void) {
     glBindVertexArray(vao);
     fmt::print("main VAO = {}\n", vao);
 
+    // VBO
+    VertexBuffer vb(vertices, sizeof(vertices));
 
     // IBO (slot GL_ELEMENT_ARRAY_BUFFER) -> VAO
-    GLuint ibo;
-    glGenBuffers(1, &ibo);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-    fmt::print("main IBO = {}\n", ibo);
+    IndexBuffer ib(indices, 6);
 
     // Enable attrib array in VAO and set its layout
     glEnableVertexAttribArray(0);

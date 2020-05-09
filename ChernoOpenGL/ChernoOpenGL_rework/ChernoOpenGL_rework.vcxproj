@@ -145,14 +145,16 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\GLDebugMessageCallback.cc" />
+    <ClCompile Include="src\IndexBuffer.cpp" />
     <ClCompile Include="src\main.cc" />
     <ClCompile Include="src\Renderer.cpp" />
     <ClCompile Include="src\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GLDebugMessageCallback.h" />
+    <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\Renderer.h" />
-    <ClInclude Include="src\TEST_SHADERS.h" />
+    <ClInclude Include="src\stuff\TEST_SHADERS.h" />
     <ClInclude Include="src\VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
@@ -162,7 +164,7 @@
     <None Include="shaders\test.vert" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="src\main_old.txt" />
+    <Text Include="src\stuff\main_old.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
