@@ -11,7 +11,6 @@
 #include <fmt/format.h>
 
 #include "GLDebugMessageCallback.h"
-#include "TEST_SHADERS.h"
 
 
 std::string tryReadFile(const std::string& filepath)
