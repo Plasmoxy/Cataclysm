@@ -59,8 +59,8 @@ GLuint compileShader(unsigned int type, const std::string& source)
     return id;
 }
 
-GLuint createShaderProgram(const std::string& vertexSrc, const std::string& fragmentSrc) {
-
+GLuint createShaderProgram(const std::string& vertexSrc, const std::string& fragmentSrc)
+{
     GLuint program = glCreateProgram();   
     GLuint vs = compileShader(GL_VERTEX_SHADER, vertexSrc);
     GLuint fs = compileShader(GL_FRAGMENT_SHADER, fragmentSrc);
@@ -79,6 +79,10 @@ GLuint createShaderProgram(const std::string& vertexSrc, const std::string& frag
 }
 
 int main(void) {
+
+    std::string included = R"~(
+    
+    )~";
 
     /* Initialize GLFW */
     if (!glfwInit()) return -1;
@@ -123,6 +127,12 @@ int main(void) {
     glBindVertexArray(vao);
     fmt::print("main VAO = {}\n", vao);
 
+    // VBO (slot GL_ARRAY_BUFFER) -> VAO
+    GLuint vbo;
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    fmt::print("main VBO = {}\n", vbo);
 
     // IBO (slot GL_ELEMENT_ARRAY_BUFFER) -> VAO
     GLuint ibo;
@@ -136,8 +146,8 @@ int main(void) {
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), 0);
 
     GLuint testShader = createShaderProgram(
-        tryReadFile("shaders/red.vert"),
-        tryReadFile("shaders/red.frag")
+        tryReadFile("shaders/test.vert"),
+        tryReadFile("shaders/test.frag")
     );
     GLint u_Secs = glGetUniformLocation(testShader, "u_Secs");
     GLint u_Color = glGetUniformLocation(testShader, "u_Color");

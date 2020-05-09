@@ -21,6 +21,12 @@
     <ClCompile Include="src\GLDebugMessageCallback.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\VertexBuffer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\TEST_SHADERS.h">
@@ -29,9 +35,20 @@
     <ClInclude Include="src\GLDebugMessageCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Renderer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VertexBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="shaders\test.vert" />
     <None Include="shaders\test.frag" />
+    <None Include="shaders\red.frag" />
+    <None Include="shaders\red.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="src\main_old.txt" />
   </ItemGroup>
 </Project>
