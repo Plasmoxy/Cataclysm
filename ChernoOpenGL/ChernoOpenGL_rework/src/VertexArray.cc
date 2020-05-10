@@ -1,5 +1,4 @@
 
-#include <GL/glew.h>
 #include "VertexArray.h"
 
 VertexArray::VertexArray() {
@@ -10,10 +9,10 @@ VertexArray::~VertexArray() {
 	glDeleteVertexArrays(1, &rendererId);
 }
 
-void VertexArray::addBuffer(const VertexBuffer& vertexbf,
-							const VertexBufferLayout& layout) {
+void VertexArray::setVBO(const VertexBuffer& vbo,
+						 const VertexBufferLayout& layout) {
 	bind();
-	vertexbf.bind();
+	vbo.bind();
 	
 	const auto& attribs = layout.attributes;
 	unsigned int offset = 0;
@@ -31,6 +30,11 @@ void VertexArray::addBuffer(const VertexBuffer& vertexbf,
 		// offsets every iteration
 		offset += attr.componentCount * VertexAttribute::getSizeOfGLType(attr.type);
 	}
+}
+
+void VertexArray::setIBO(const IndexBuffer& ibo) {
+	bind();
+	ibo.bind();
 }
 
 void VertexArray::bind() const {

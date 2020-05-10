@@ -4,6 +4,7 @@
 #include <cassert>
 #include <GL/glew.h>
 #include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 struct VertexAttribute {
 	GLuint type = 0;
@@ -61,7 +62,8 @@ public:
 	VertexArray();
 	~VertexArray();
 	
-	void addBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);
+	void setVBO(const VertexBuffer& vbo, const VertexBufferLayout& layout);
+	void setIBO(const IndexBuffer& ibo);
 	void bind() const;
 	void unbind() const;
 };

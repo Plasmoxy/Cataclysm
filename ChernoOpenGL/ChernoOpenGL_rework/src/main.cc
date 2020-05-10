@@ -120,19 +120,17 @@ int main(void) {
     };
     
     // VAO
-    VertexArray va;
+    VertexArray* va = new VertexArray();
 
     // VBO -> VAO
     VertexBuffer* vb = new VertexBuffer(vertices, sizeof(vertices));
-
-    // IBO (slot GL_ELEMENT_ARRAY_BUFFER) -> VAO
-    va.bind(); // TODO: bind IBO inside VertexArray class
-    IndexBuffer* ib = new IndexBuffer(indices, 6);
-
-    // layout
     VertexBufferLayout layout;
     layout.addAttrib<float>(2);
-    va.addBuffer(*vb, layout);
+    va->setVBO(*vb, layout);
+
+    // IBO (slot GL_ELEMENT_ARRAY_BUFFER) -> VAO
+    IndexBuffer* ib = new IndexBuffer(indices, 6);
+    va->setIBO(*ib);
 
     GLuint testShader = createShaderProgram(
         tryReadFile("shaders/red.vert"),
@@ -147,7 +145,6 @@ int main(void) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     glUseProgram(0);
-    
 
     float r = 0.0f;
     double xpos, ypos;
@@ -166,7 +163,7 @@ int main(void) {
         glUniform1f(u_Secs, clock() / (float)CLOCKS_PER_SEC);
         glUniform4f(u_Color, r, 0.3f, 0.8f, 1.0f);
 
-        va.bind();
+        va->bind();
 
         glUniform4f(u_Color, r, 0.3f, 0.8f, 1.0f);
         glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(0));
@@ -182,6 +179,7 @@ int main(void) {
         glfwPollEvents();
     }
 
+    delete va; // delete VAO first (unbinds the VBO and IBO)
     delete vb;
     delete ib;
 
