@@ -79,6 +79,8 @@ int main(void) {
     ib->unbind();
     shader.unbind();
 
+    Renderer renderer;
+
     float r = 0.0f;
     double xpos, ypos;
     int width, height;
@@ -87,17 +89,15 @@ int main(void) {
     {
         glfwGetCursorPos(window, &xpos, &ypos);
         glfwGetWindowSize(window, &width, &height);
-        glClear(GL_COLOR_BUFFER_BIT);
+        
+        renderer.clear();
 
         if (r > 1.0f) r = 0.0f;
         r += 0.05f;
 
         shader.bind();
-        shader.setUniform4f("u_Color", r, 0.3f, 0.8f, 1.0f);
-
-        va->bind();
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(0));
-        glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, (void*)(3 * 4));
+        shader.setUniform4f("u_Color", 1.0, 0.0, 1.0, 1.0);
+        renderer.draw(*va, *ib, shader);
 
         /*GLint varrayid;
         glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &varrayid);

@@ -24,9 +24,10 @@ public:
 	void unbind() const;
 
 	// uniforms
+	GLint getUniformLocation(const std::string& uniformName);
+	void setUniform1f(const std::string& name, float v);
 	void setUniform4f(const std::string& name, float a, float b, float c, float d);
 	
-	GLint getUniformLocation(const std::string& uniformName);
 
 	// util
 	static std::string tryReadFile(const std::string& filepath);
