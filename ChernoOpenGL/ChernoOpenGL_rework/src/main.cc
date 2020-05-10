@@ -74,10 +74,10 @@ int main(void) {
 
     // unbind all, imporant: unbind VAO first because we cannot delete
     // a VBO/IBO that is currently bound to VAO
-    glBindVertexArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
-    glUseProgram(0);
+    va->unbind();
+    vb->unbind();
+    ib->unbind();
+    shader.unbind();
 
     float r = 0.0f;
     double xpos, ypos;
