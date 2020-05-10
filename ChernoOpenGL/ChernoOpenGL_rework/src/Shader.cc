@@ -25,7 +25,14 @@ void Shader::setUniform4f(const std::string& name, float a,
 }
 
 GLint Shader::getUniformLocation(const std::string& uniformName) {
+
+    // get from cache
+    if (uniformLocationCache.find(uniformName) != uniformLocationCache.end()) {
+        return uniformLocationCache[uniformName];
+    }
+
     GLint loc = glGetUniformLocation(rendererId, uniformName.c_str());
+    uniformLocationCache[uniformName] = loc;
 	return loc;
 }
 

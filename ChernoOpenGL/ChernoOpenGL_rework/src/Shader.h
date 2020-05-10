@@ -5,6 +5,7 @@
 #include <sstream>
 #include <fstream>
 #include <cassert>
+#include <unordered_map>
 #include <fmt/format.h>
 #include <GL/glew.h>
 
@@ -14,7 +15,7 @@ public:
 	unsigned int rendererId = 0;
 
 	// caching
-
+	std::unordered_map<std::string, GLint> uniformLocationCache;
 
 	Shader(const std::string& name);
 	~Shader();
