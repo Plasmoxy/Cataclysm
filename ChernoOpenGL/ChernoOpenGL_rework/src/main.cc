@@ -93,10 +93,10 @@ int main(void) {
         glMouseX = (mousex/width)*2.0f - 1.0f;
         glMouseY = (1.0f - mousey/height)*2.0f - 1.0f;
         
-        renderer.clear();
-
         if (r > 1.0f) r = 0.0f;
         r += 0.05f;
+
+        renderer.clear();
 
         shader.bind();
         shader.setUniform4f("u_Color", 1.0, 0.0, 1.0, 1.0);
