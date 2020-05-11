@@ -65,6 +65,8 @@
     <None Include="shaders\test.frag" />
     <None Include="shaders\red.frag" />
     <None Include="shaders\red.vert" />
+    <None Include="shaders\mouse.frag" />
+    <None Include="shaders\mouse.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\stuff\main_old.txt" />

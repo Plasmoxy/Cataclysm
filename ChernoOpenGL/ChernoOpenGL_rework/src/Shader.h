@@ -11,13 +11,14 @@
 
 class Shader {
 public:
-	std::string namePath;
+	std::string vertexPath;
+	std::string fragmentPath;
 	unsigned int rendererId = 0;
 
 	// caching
 	std::unordered_map<std::string, GLint> uniformLocationCache;
 
-	Shader(const std::string& name);
+	Shader(std::string vertexPath, std::string fragmentPath);
 	~Shader();
 
 	void bind() const;
@@ -26,6 +27,7 @@ public:
 	// uniforms
 	GLint getUniformLocation(const std::string& uniformName);
 	void setUniform1f(const std::string& name, float v);
+	void setUniform2f(const std::string& name, float a, float b);
 	void setUniform4f(const std::string& name, float a, float b, float c, float d);
 	
 

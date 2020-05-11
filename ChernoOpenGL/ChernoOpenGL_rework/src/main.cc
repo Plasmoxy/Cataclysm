@@ -70,7 +70,7 @@ int main(void) {
     va->setIBO(*ib);
 
     // shader
-    Shader shader("shaders/red");
+    Shader shader("shaders/mouse.vert", "shaders/mouse.frag");
 
     // unbind all, imporant: unbind VAO first because we cannot delete
     // a VBO/IBO that is currently bound to VAO
@@ -82,13 +82,16 @@ int main(void) {
     Renderer renderer;
 
     float r = 0.0f;
-    double xpos, ypos;
+    double mousex, mousey;
     int width, height;
+    float glMouseX, glMouseY;
 
     while (!glfwWindowShouldClose(window))
     {
-        glfwGetCursorPos(window, &xpos, &ypos);
+        glfwGetCursorPos(window, &mousex, &mousey);
         glfwGetWindowSize(window, &width, &height);
+        glMouseX = (mousex/width)*2.0f - 1.0f;
+        glMouseY = (1.0f - mousey/height)*2.0f - 1.0f;
         
         renderer.clear();
 
@@ -97,6 +100,7 @@ int main(void) {
 
         shader.bind();
         shader.setUniform4f("u_Color", 1.0, 0.0, 1.0, 1.0);
+        shader.setUniform2f("u_mouse", glMouseX, glMouseY);
         renderer.draw(*va, *ib, shader);
 
         /*GLint varrayid;

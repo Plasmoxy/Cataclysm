@@ -162,6 +162,8 @@
     <ClInclude Include="src\VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="shaders\mouse.frag" />
+    <None Include="shaders\mouse.vert" />
     <None Include="shaders\red.frag" />
     <None Include="shaders\red.vert" />
     <None Include="shaders\test.frag" />
