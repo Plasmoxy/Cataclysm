@@ -149,6 +149,8 @@
     <ClCompile Include="src\main.cc" />
     <ClCompile Include="src\Renderer.cc" />
     <ClCompile Include="src\Shader.cc" />
+    <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\vendor\stb_image.cpp" />
     <ClCompile Include="src\VertexArray.cc" />
     <ClCompile Include="src\VertexBuffer.cc" />
   </ItemGroup>
@@ -157,6 +159,8 @@
     <ClInclude Include="src\IndexBuffer.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Shader.h" />
+    <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\vendor\stb_image.h" />
     <ClInclude Include="src\stuff\TEST_SHADERS.h" />
     <ClInclude Include="src\VertexArray.h" />
     <ClInclude Include="src\VertexBuffer.h" />
@@ -171,6 +175,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\stuff\main_old.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\lena.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
