@@ -1,7 +1,7 @@
 
 #include <GL/glew.h>
 #include "Texture.hpp"
-#include "vendor/stb_image.h"
+#include "stb_image.h"
 
 Texture::Texture(const std::string& path): filePath(path) {
 

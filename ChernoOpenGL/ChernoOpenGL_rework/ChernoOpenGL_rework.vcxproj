@@ -87,7 +87,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;C:/lib/glew/include;C:/lib/glfw/include;C:/lib/glm</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include;C:/lib/glew/include;C:/lib/glfw/include;C:/lib/glm;C:/lib/stb</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -160,7 +160,6 @@
     <ClInclude Include="src\Renderer.hpp" />
     <ClInclude Include="src\Shader.hpp" />
     <ClInclude Include="src\Texture.hpp" />
-    <ClInclude Include="src\vendor\stb_image.h" />
     <ClInclude Include="src\stuff\TEST_SHADERS.h" />
     <ClInclude Include="src\VertexArray.hpp" />
     <ClInclude Include="src\VertexBuffer.hpp" />
