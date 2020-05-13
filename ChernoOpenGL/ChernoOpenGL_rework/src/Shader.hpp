@@ -8,6 +8,7 @@
 #include <unordered_map>
 #include <fmt/format.h>
 #include <GL/glew.h>
+#include <glm/glm.hpp>
 
 class Shader {
 public:
@@ -30,6 +31,7 @@ public:
 	void setUniform1f(const std::string& name, float v);
 	void setUniform2f(const std::string& name, float a, float b);
 	void setUniform4f(const std::string& name, float a, float b, float c, float d);
+	void setUniformMat4f(const std::string& name, const glm::mat4& mat);
 
 	// util
 	static std::string tryReadFile(const std::string& filepath);

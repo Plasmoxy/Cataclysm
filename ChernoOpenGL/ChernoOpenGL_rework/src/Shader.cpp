@@ -33,6 +33,10 @@ void Shader::setUniform4f(const std::string& name, float a,
     glUniform4f(getUniformLocation(name), a, b, c, d);
 }
 
+void Shader::setUniformMat4f(const std::string& name, const glm::mat4& mat) {
+    glUniformMatrix4fv(getUniformLocation(name), 1, GL_FALSE, &mat[0][0]);
+}
+
 void Shader::setUniform1i(const std::string& name, int v) {
     glUniform1i(getUniformLocation(name), v);
 }
@@ -48,8 +52,6 @@ GLint Shader::getUniformLocation(const std::string& uniformName) {
     uniformLocationCache[uniformName] = loc;
 	return loc;
 }
-
-
 
 std::string Shader::tryReadFile(const std::string& filepath) {
     std::stringstream ss;

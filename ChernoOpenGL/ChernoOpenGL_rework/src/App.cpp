@@ -9,6 +9,8 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <fmt/format.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "GLDebugMessageCallback.hpp"
 #include "Renderer.hpp"
@@ -49,7 +51,7 @@ int main(void) {
     // data...
     float vertices[] = {
     //      x      y   texX  texY
-        -0.5f, -0.5f, 0.0f, 0.0f,
+        -2.0f, -0.5f, 0.0f, 0.0f,
          0.5f, -0.5f, 1.0f, 0.0f,
          0.5f,  0.5f, 1.0f, 1.0f,
         -0.5f,  0.5f, 0.0f, 1.0f,
@@ -73,14 +75,18 @@ int main(void) {
     IndexBuffer* ib = new IndexBuffer(indices, 6);
     va->setIBO(*ib);
 
-    // stuff
+    // shader
     Shader shader("shaders/texture.vert", "shaders/texture.frag");
-    Texture texture("res/lena.png");
+    shader.bind();
 
     // texture
-    shader.bind();
+    Texture texture("res/lena.png");
     texture.bind(0);
     shader.setUniform1i("u_Texture", 0); // texture slot uniform
+
+    // math stuff
+    glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+    shader.setUniformMat4f("u_Proj", proj);
 
     // unbind all, imporant: unbind VAO first because we cannot delete
     // a VBO/IBO that is currently bound to VAO
@@ -89,6 +95,7 @@ int main(void) {
     ib->unbind();
     shader.unbind();
 
+    // Renderer
     Renderer renderer;
 
     float r = 0.0f;
