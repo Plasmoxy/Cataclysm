@@ -70,7 +70,7 @@ int main(void) {
     va->setIBO(*ib);
 
     // shader
-    Shader shader("shaders/mouse.vert", "shaders/mouse.frag");
+    Shader shader("shaders/red.vert", "shaders/red.frag");
 
     // unbind all, imporant: unbind VAO first because we cannot delete
     // a VBO/IBO that is currently bound to VAO
