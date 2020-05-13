@@ -146,7 +146,7 @@
   <ItemGroup>
     <ClCompile Include="src\GLDebugMessageCallback.cc" />
     <ClCompile Include="src\IndexBuffer.cc" />
-    <ClCompile Include="src\main.cc" />
+    <ClCompile Include="src\App.cc" />
     <ClCompile Include="src\Renderer.cc" />
     <ClCompile Include="src\Shader.cc" />
     <ClCompile Include="src\Texture.cpp" />
@@ -172,6 +172,8 @@
     <None Include="shaders\red.vert" />
     <None Include="shaders\test.frag" />
     <None Include="shaders\test.vert" />
+    <None Include="shaders\texture.frag" />
+    <None Include="shaders\texture.vert" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="src\stuff\main_old.txt" />

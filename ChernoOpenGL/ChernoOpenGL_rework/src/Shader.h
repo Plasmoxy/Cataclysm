@@ -26,10 +26,10 @@ public:
 
 	// uniforms
 	GLint getUniformLocation(const std::string& uniformName);
+	void setUniform1i(const std::string& name, int v);
 	void setUniform1f(const std::string& name, float v);
 	void setUniform2f(const std::string& name, float a, float b);
 	void setUniform4f(const std::string& name, float a, float b, float c, float d);
-	
 
 	// util
 	static std::string tryReadFile(const std::string& filepath);

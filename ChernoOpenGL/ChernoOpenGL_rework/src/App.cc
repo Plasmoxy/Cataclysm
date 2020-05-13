@@ -16,6 +16,7 @@
 #include "IndexBuffer.h"
 #include "VertexArray.h"
 #include "Shader.h"
+#include "Texture.h"
 
 int main(void) {
 
@@ -46,10 +47,11 @@ int main(void) {
     
     // data...
     float vertices[] = {
-        -0.5f, -0.5f,
-         0.5f, -0.5f,
-         0.5f,  0.5f,
-        -0.5f,  0.5f,
+    //      x      y   texX  texY
+        -0.5f, -0.5f, 0.0f, 0.0f,
+         0.5f, -0.5f, 1.0f, 0.0f,
+         0.5f,  0.5f, 1.0f, 1.0f,
+        -0.5f,  0.5f, 0.0f, 1.0f,
     };
     unsigned int indices[] = {
         0, 1, 2,
@@ -62,15 +64,22 @@ int main(void) {
     // VBO -> VAO
     VertexBuffer* vb = new VertexBuffer(vertices, sizeof(vertices));
     VertexBufferLayout layout;
-    layout.addAttrib<float>(2);
+    layout.addAttrib<float>(2); // pos
+    layout.addAttrib<float>(2); // texture pos
     va->setVBO(*vb, layout);
 
     // IBO (slot GL_ELEMENT_ARRAY_BUFFER) -> VAO
     IndexBuffer* ib = new IndexBuffer(indices, 6);
     va->setIBO(*ib);
 
-    // shader
-    Shader shader("shaders/red.vert", "shaders/red.frag");
+    // stuff
+    Shader shader("shaders/texture.vert", "shaders/texture.frag");
+    Texture texture("res/lena.png");
+
+    // texture
+    shader.bind();
+    texture.bind(0);
+    shader.setUniform1i("u_Texture", 0); // texture slot uniform
 
     // unbind all, imporant: unbind VAO first because we cannot delete
     // a VBO/IBO that is currently bound to VAO

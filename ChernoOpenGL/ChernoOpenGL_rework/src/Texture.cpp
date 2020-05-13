@@ -29,7 +29,7 @@ Texture::~Texture() {
 }
 
 void Texture::bind(unsigned int slot) const {
-	glActiveTexture(GL_TEXTURE0); // select texture slot
+	glActiveTexture(GL_TEXTURE0 + slot); // select texture slot
 	glBindTexture(GL_TEXTURE_2D, rendererId);
 }
 
