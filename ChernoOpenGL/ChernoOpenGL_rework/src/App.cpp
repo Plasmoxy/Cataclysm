@@ -10,13 +10,13 @@
 #include <GLFW/glfw3.h>
 #include <fmt/format.h>
 
-#include "GLDebugMessageCallback.h"
-#include "Renderer.h"
-#include "VertexBuffer.h"
-#include "IndexBuffer.h"
-#include "VertexArray.h"
-#include "Shader.h"
-#include "Texture.h"
+#include "GLDebugMessageCallback.hpp"
+#include "Renderer.hpp"
+#include "VertexBuffer.hpp"
+#include "IndexBuffer.hpp"
+#include "VertexArray.hpp"
+#include "Shader.hpp"
+#include "Texture.hpp"
 
 int main(void) {
 

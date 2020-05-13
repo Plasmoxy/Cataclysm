@@ -1,5 +1,6 @@
 // Header for GLDebugMessageCallback by Plasmoxy 2020
 // Feel free to use this in any way.
+#pragma once
 
 #include <iostream>
 #include <GL/glew.h>

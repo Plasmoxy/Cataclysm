@@ -1,4 +1,4 @@
-#include "IndexBuffer.h"
+#include "IndexBuffer.hpp"
 
 IndexBuffer::IndexBuffer(unsigned int* data, unsigned int count) : count(count) {
     // VBO (slot GL_ARRAY_BUFFER) -> VAO
