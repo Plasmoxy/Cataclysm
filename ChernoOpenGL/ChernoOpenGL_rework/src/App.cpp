@@ -131,6 +131,7 @@ int main(void) {
     // Renderer
     Renderer renderer;
 
+    bool controlsOpen = true;
     float seconds = 0;
     double mousex, mousey;
     float glMouseX, glMouseY;
@@ -172,12 +173,16 @@ int main(void) {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-
+        
+        ImGui::Begin("Controls", &controlsOpen);
+        ImGui::SetWindowCollapsed(true, ImGuiCond_Once); // collapse on first time
+        ImGui::SetWindowPos(ImVec2(20, 20), ImGuiCond_Once);
         {
             ImGui::Text("FPS: %.3f", io.Framerate);
             ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 100.0f);
             ImGui::SliderFloat("u_Negative", &negative, 0.0f, 1.0f);
         }
+        ImGui::End();
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
