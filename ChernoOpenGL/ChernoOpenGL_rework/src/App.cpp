@@ -174,8 +174,8 @@ int main(void) {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
         
-        ImGui::Begin("Controls", &controlsOpen);
-        ImGui::SetWindowCollapsed(true, ImGuiCond_Once); // collapse on first time
+        ImGui::Begin("Controls", &controlsOpen, ImGuiWindowFlags_AlwaysAutoResize);
+        // ImGui::SetWindowCollapsed(true, ImGuiCond_Once);
         ImGui::SetWindowPos(ImVec2(20, 20), ImGuiCond_Once);
         {
             ImGui::Text("FPS: %.3f", io.Framerate);
@@ -183,7 +183,6 @@ int main(void) {
             ImGui::SliderFloat("u_Negative", &negative, 0.0f, 1.0f);
         }
         ImGui::End();
-
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         
