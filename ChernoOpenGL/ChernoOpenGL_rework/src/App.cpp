@@ -12,6 +12,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/string_cast.hpp>
+#include "imgui/imgui.h"
 
 #include "GLDebugMessageCallback.hpp"
 #include "Renderer.hpp"
@@ -48,6 +49,8 @@ int main(void) {
     // blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+    
 
     // shader
     Shader shader("shaders/texture.vert", "shaders/texture.frag");
