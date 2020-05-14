@@ -11,6 +11,7 @@
 #include <fmt/format.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/string_cast.hpp>
 
 #include "GLDebugMessageCallback.hpp"
 #include "Renderer.hpp"
@@ -24,8 +25,8 @@ int main(void) {
 
     /* Initialize GLFW */
     if (!glfwInit()) return -1;
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
@@ -51,7 +52,7 @@ int main(void) {
     // data...
     float vertices[] = {
     //      x      y   texX  texY
-        -2.0f, -0.5f, 0.0f, 0.0f,
+        -0.5f, -0.5f, 0.0f, 0.0f,
          0.5f, -0.5f, 1.0f, 0.0f,
          0.5f,  0.5f, 1.0f, 1.0f,
         -0.5f,  0.5f, 0.0f, 1.0f,
@@ -86,6 +87,7 @@ int main(void) {
 
     // math stuff
     glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+    fmt::print("Proj = {}", glm::to_string(proj));
     shader.setUniformMat4f("u_Proj", proj);
 
     // unbind all, imporant: unbind VAO first because we cannot delete
@@ -107,8 +109,8 @@ int main(void) {
     {
         glfwGetCursorPos(window, &mousex, &mousey);
         glfwGetWindowSize(window, &width, &height);
-        glMouseX = (mousex/width)*2.0f - 1.0f;
-        glMouseY = (1.0f - mousey/height)*2.0f - 1.0f;
+        glMouseX = ((float)(mousex/width))*2.0f - 1.0f;
+        glMouseY = (1.0f - (float)(mousey/height))*2.0f - 1.0f;
         
         if (r > 1.0f) r = 0.0f;
         r += 0.05f;
