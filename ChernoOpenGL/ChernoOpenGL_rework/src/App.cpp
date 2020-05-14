@@ -107,6 +107,7 @@ int main(void) {
     double mousex, mousey;
     float glMouseX, glMouseY;
     int width, height;
+    constexpr float pi = glm::pi<float>();
 
     while (!glfwWindowShouldClose(window))
     {
@@ -119,7 +120,6 @@ int main(void) {
 
         renderer.clear();
 
-        view = glm::translate(glm::mat4(1.0f), glm::vec3(10*seconds, 0, 0));
         model = glm::translate(glm::mat4(1.0f), glm::vec3(200, 200, 0));
 
         shader.bind();
