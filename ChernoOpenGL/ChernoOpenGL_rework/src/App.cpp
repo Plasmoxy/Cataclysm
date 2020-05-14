@@ -127,6 +127,8 @@ int main(void) {
     int width, height;
     constexpr float pi = glm::pi<float>();
 
+    glm::vec3 translation(0, 0, 0);
+
     while (!glfwWindowShouldClose(window))
     {
         glfwPollEvents();
@@ -141,7 +143,7 @@ int main(void) {
         // Rendering ...
         renderer.clear();
 
-        model = glm::translate(glm::mat4(1.0f), glm::vec3(200, 200, 0));
+        model = glm::translate(glm::mat4(1.0f), translation);
 
         shader.bind();
         shader.setUniform4f("u_Color", 1.0, 0.0, 1.0, 1.0);
@@ -159,8 +161,10 @@ int main(void) {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
-        bool show = true;
-        ImGui::ShowDemoWindow(&show);
+        {
+            ImGui::Text("FPS: %.3f", io.Framerate);
+            ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 100.0f);
+        }
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
