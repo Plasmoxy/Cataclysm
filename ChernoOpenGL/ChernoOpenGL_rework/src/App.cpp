@@ -13,6 +13,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/string_cast.hpp>
 #include "imgui/imgui.h"
+#include "imgui/imgui_impl_opengl3.h"
+#include "imgui/imgui_impl_glfw.h"
 
 #include "GLDebugMessageCallback.hpp"
 #include "Renderer.hpp"
@@ -29,6 +31,7 @@ int main(void) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    // glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_TRUE);
 
     /* Create a windowed mode window and its OpenGL context */
     GLFWwindow* window = glfwCreateWindow(960, 540, "Hello World", nullptr, nullptr);
@@ -50,7 +53,19 @@ int main(void) {
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+    // Setup ImGui
+    IMGUI_CHECKVERSION();
+    ImGui::CreateContext();
+    ImGui::StyleColorsDark();
+    ImGui_ImplGlfw_InitForOpenGL(window, true); // init GLFW implementation
+    ImGui_ImplOpenGL3_Init("#version 330 core"); // init OpenGL impl
+    ImGuiIO& io = ImGui::GetIO();
     
+    // Scaling for fonts (HDPI)
+    // ImFontConfig cfg;
+    // cfg.SizePixels = 26;
+    // ImFont* defaultFont = io.Fonts->AddFontDefault(&cfg);
+    // defaultFont->DisplayOffset.y = 2.0f;
 
     // shader
     Shader shader("shaders/texture.vert", "shaders/texture.frag");
@@ -114,13 +129,16 @@ int main(void) {
 
     while (!glfwWindowShouldClose(window))
     {
+        glfwPollEvents();
+
+        // Calculations ...
         seconds = clock() * 1.0f / CLOCKS_PER_SEC;
         glfwGetCursorPos(window, &mousex, &mousey);
         glfwGetWindowSize(window, &width, &height);
         glMouseX = ((float)(mousex/width))*2.0f - 1.0f;
         glMouseY = (1.0f - (float)(mousey/height))*2.0f - 1.0f;
         
-
+        // Rendering ...
         renderer.clear();
 
         model = glm::translate(glm::mat4(1.0f), glm::vec3(200, 200, 0));
@@ -136,14 +154,29 @@ int main(void) {
         glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &varrayid);
         fmt::print("current vao = {}\n", varrayid);*/
 
+        // UI
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+
+        bool show = true;
+        ImGui::ShowDemoWindow(&show);
+
+        ImGui::Render();
+        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        
         glfwSwapBuffers(window);
-        glfwPollEvents();
     }
 
     delete va; // delete VAO first (unbinds the VBO and IBO)
     delete vb;
     delete ib;
 
+    // cleanup
+    ImGui_ImplOpenGL3_Shutdown();
+    ImGui_ImplGlfw_Shutdown();
+    ImGui::DestroyContext();
     glfwTerminate();
+
     return 0;
 }

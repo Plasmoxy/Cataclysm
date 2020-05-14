@@ -87,7 +87,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;C:/lib/glew/include;C:/lib/glfw/include;C:/lib/glm;C:/lib/stb</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/vendor;$(ProjectDir)include;C:/lib/glew/include;C:/lib/glfw/include;C:/lib/glm;C:/lib/stb</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -136,7 +136,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)include;C:/lib/glew/include;C:/lib/glfw/include;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src/vendor;$(ProjectDir)include;C:/lib/glew/include;C:/lib/glfw/include;C:/lib/glm;C:/lib/stb</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
