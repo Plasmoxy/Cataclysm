@@ -87,8 +87,7 @@ int main(void) {
 
     // math stuff
     glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
-    fmt::print("Proj = {}", glm::to_string(proj));
-    shader.setUniformMat4f("u_Proj", proj);
+    shader.setUniformMat4f("u_MVP", proj);
 
     // unbind all, imporant: unbind VAO first because we cannot delete
     // a VBO/IBO that is currently bound to VAO
