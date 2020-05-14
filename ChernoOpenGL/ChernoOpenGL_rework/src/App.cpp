@@ -86,8 +86,12 @@ int main(void) {
     va->setIBO(*ib);
 
     // math stuff
+    // View matrix - camera transform
+    // Model matrix - model transform
+    // Projection matrix - projection from model space to gl screen space
     glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-    shader.setUniformMat4f("u_MVP", proj);
+    glm::mat4 view(1.0f);
+    glm::mat4 model(1.0f);
 
     // unbind all, imporant: unbind VAO first because we cannot delete
     // a VBO/IBO that is currently bound to VAO
@@ -99,26 +103,30 @@ int main(void) {
     // Renderer
     Renderer renderer;
 
-    float r = 0.0f;
+    float seconds = 0;
     double mousex, mousey;
-    int width, height;
     float glMouseX, glMouseY;
+    int width, height;
 
     while (!glfwWindowShouldClose(window))
     {
+        seconds = clock() * 1.0f / CLOCKS_PER_SEC;
         glfwGetCursorPos(window, &mousex, &mousey);
         glfwGetWindowSize(window, &width, &height);
         glMouseX = ((float)(mousex/width))*2.0f - 1.0f;
         glMouseY = (1.0f - (float)(mousey/height))*2.0f - 1.0f;
         
-        if (r > 1.0f) r = 0.0f;
-        r += 0.05f;
 
         renderer.clear();
+
+        view = glm::translate(glm::mat4(1.0f), glm::vec3(10*seconds, 0, 0));
+        model = glm::translate(glm::mat4(1.0f), glm::vec3(200, 200, 0));
 
         shader.bind();
         shader.setUniform4f("u_Color", 1.0, 0.0, 1.0, 1.0);
         shader.setUniform2f("u_mouse", glMouseX, glMouseY);
+        shader.setUniformMat4f("u_MVP", proj * view * model);
+
         renderer.draw(*va, *ib, shader);
 
         /*GLint varrayid;
