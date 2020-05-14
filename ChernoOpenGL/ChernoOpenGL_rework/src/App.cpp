@@ -5,6 +5,7 @@
 #include <sstream>
 #include <fstream>
 #include <cassert>
+#include <Windows.h>
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -15,6 +16,9 @@
 #include "imgui/imgui.h"
 #include "imgui/imgui_impl_opengl3.h"
 #include "imgui/imgui_impl_glfw.h"
+
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3native.h>
 
 #include "GLDebugMessageCallback.hpp"
 #include "Renderer.hpp"
@@ -35,6 +39,12 @@ int main(void) {
 
     /* Create a windowed mode window and its OpenGL context */
     GLFWwindow* window = glfwCreateWindow(960, 540, "Cherno GL Rework", nullptr, nullptr);
+
+    HWND windowHandle = glfwGetWin32Window(window);
+    unsigned int windowDpi = GetDpiForWindow(windowHandle);
+    fmt::print("Running on Windows with DPI: {}\n", windowDpi);
+
+
     if (!window) { glfwTerminate(); return -1; }
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // vsync
