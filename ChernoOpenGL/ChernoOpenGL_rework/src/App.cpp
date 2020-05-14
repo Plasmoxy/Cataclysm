@@ -34,7 +34,7 @@ int main(void) {
     // glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_TRUE);
 
     /* Create a windowed mode window and its OpenGL context */
-    GLFWwindow* window = glfwCreateWindow(960, 540, "Hello World", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(960, 540, "Cherno GL Rework", nullptr, nullptr);
     if (!window) { glfwTerminate(); return -1; }
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // vsync
@@ -126,6 +126,7 @@ int main(void) {
     float glMouseX, glMouseY;
     int width, height;
     constexpr float pi = glm::pi<float>();
+    float negative = 0;
 
     glm::vec3 translation(0, 0, 0);
 
@@ -149,6 +150,7 @@ int main(void) {
         shader.setUniform4f("u_Color", 1.0, 0.0, 1.0, 1.0);
         shader.setUniform2f("u_mouse", glMouseX, glMouseY);
         shader.setUniformMat4f("u_MVP", proj * view * model);
+        shader.setUniform1f("u_Negative", negative);
 
         renderer.draw(*va, *ib, shader);
 
@@ -164,6 +166,7 @@ int main(void) {
         {
             ImGui::Text("FPS: %.3f", io.Framerate);
             ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 100.0f);
+            ImGui::SliderFloat("u_Negative", &negative, 0.0f, 1.0f);
         }
 
         ImGui::Render();
