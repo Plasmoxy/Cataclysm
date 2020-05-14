@@ -30,7 +30,7 @@ int main(void) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     /* Create a windowed mode window and its OpenGL context */
-    GLFWwindow* window = glfwCreateWindow(640, 480, "Hello World", nullptr, nullptr);
+    GLFWwindow* window = glfwCreateWindow(960, 540, "Hello World", nullptr, nullptr);
     if (!window) { glfwTerminate(); return -1; }
     glfwMakeContextCurrent(window);
     glfwSwapInterval(1); // vsync
@@ -48,20 +48,29 @@ int main(void) {
     // blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    
-    // data...
+
+    // shader
+    Shader shader("shaders/texture.vert", "shaders/texture.frag");
+    shader.bind();
+
+    // texture
+    Texture texture("res/lena.png");
+    texture.bind(0);
+    shader.setUniform1i("u_Texture", 0); // texture slot uniform
+
+    // geometry data...
     float vertices[] = {
-    //      x      y   texX  texY
-        -0.5f, -0.5f, 0.0f, 0.0f,
-         0.5f, -0.5f, 1.0f, 0.0f,
-         0.5f,  0.5f, 1.0f, 1.0f,
-        -0.5f,  0.5f, 0.0f, 1.0f,
+        //  x     y    texX  texY
+        100.f, 100.f,  0.0f, 0.0f,
+        200.f, 100.f,  1.0f, 0.0f,
+        200.f, 200.f,  1.0f, 1.0f,
+        100.f, 200.f,  0.0f, 1.0f,
     };
     unsigned int indices[] = {
         0, 1, 2,
         2, 3, 0,
     };
-    
+
     // VAO
     VertexArray* va = new VertexArray();
 
@@ -76,17 +85,8 @@ int main(void) {
     IndexBuffer* ib = new IndexBuffer(indices, 6);
     va->setIBO(*ib);
 
-    // shader
-    Shader shader("shaders/texture.vert", "shaders/texture.frag");
-    shader.bind();
-
-    // texture
-    Texture texture("res/lena.png");
-    texture.bind(0);
-    shader.setUniform1i("u_Texture", 0); // texture slot uniform
-
     // math stuff
-    glm::mat4 proj = glm::ortho(-2.0f, 2.0f, -1.5f, 1.5f, -1.0f, 1.0f);
+    glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
     shader.setUniformMat4f("u_MVP", proj);
 
     // unbind all, imporant: unbind VAO first because we cannot delete
