@@ -27,6 +27,7 @@
 #include "VertexArray.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "tests/Test.h"
 #include "tests/TestClearColor.h"
 
 int main(void) {
@@ -79,7 +80,11 @@ int main(void) {
 
     // Stuff
     Renderer renderer;
-    test::TestClearColor colorTest;
+    tests::Test* currentTest;
+    tests::TestMenu* testMenu = new tests::TestMenu(currentTest);
+    currentTest = testMenu;
+
+    testMenu->registerTest<tests::TestClearColor>("Clear Color");
 
     bool controlsOpen = true;
     float seconds = 0;
@@ -90,7 +95,10 @@ int main(void) {
 
     while (!glfwWindowShouldClose(window))
     {
-        glfwPollEvents();
+        // Setup of frame
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
 
         // Calculations ...
         seconds = clock() * 1.0f / CLOCKS_PER_SEC;
@@ -101,22 +109,25 @@ int main(void) {
         
         // Rendering ...
         renderer.clear();
-        colorTest.update(0.0f);
-        colorTest.render();
+        if (currentTest) {
+            currentTest->update(0.0f);
+            currentTest->render();
+            
+            ImGui::Begin("Test");
+            // if we arent in test menu, draw button and if it is clicked, ...
+            if (currentTest != testMenu && ImGui::Button("<-")) {
+                delete currentTest;
+                currentTest = testMenu;
+            }
+            currentTest->imGuiRender();
+            ImGui::End();
+        }
 
-        /*GLint varrayid;
-        glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &varrayid);
-        fmt::print("current vao = {}\n", varrayid);*/
-
-        // UI
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
-        colorTest.imGuiRender();
+        // End of frame
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-        
         glfwSwapBuffers(window);
+        glfwPollEvents();
     }
 
     // cleanup

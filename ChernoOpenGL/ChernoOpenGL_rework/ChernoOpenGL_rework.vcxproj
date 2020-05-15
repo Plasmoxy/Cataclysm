@@ -156,9 +156,10 @@
   <ItemGroup>
     <ClCompile Include="src\GLDebugMessageCallback.cc" />
     <ClCompile Include="src\IndexBuffer.cc" />
-    <ClCompile Include="src\App.cpp" />
+    <ClCompile Include="src\App.cc" />
     <ClCompile Include="src\Renderer.cc" />
     <ClCompile Include="src\Shader.cc" />
+    <ClCompile Include="src\tests\Test.cc" />
     <ClCompile Include="src\tests\Test.h" />
     <ClCompile Include="src\tests\TestClearColor.cc" />
     <ClCompile Include="src\Texture.cc" />

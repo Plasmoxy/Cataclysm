@@ -2,7 +2,7 @@
 #include <GL/glew.h>
 #include <imgui/imgui.h>
 
-namespace test {
+namespace tests {
 
 	TestClearColor::TestClearColor() {
 
