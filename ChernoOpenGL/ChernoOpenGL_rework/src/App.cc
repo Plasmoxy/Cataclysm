@@ -87,6 +87,7 @@ int main(void) {
     testMenu->registerTest<tests::TestClearColor>("Clear Color");
     testMenu->registerTest<tests::TestLena>("Lena");
 
+    bool controlsOpen = true;
     float seconds = 0;
     double mousex, mousey;
     float glMouseX, glMouseY;
@@ -114,7 +115,7 @@ int main(void) {
             currentTest->update(0.0f);
             currentTest->render(renderer);
             
-            ImGui::Begin("Tests");
+            ImGui::Begin("Tests", &controlsOpen, ImGuiWindowFlags_AlwaysAutoResize);
             // if we arent in test menu, draw button and if it is clicked, ...
             if (currentTest != testMenu && ImGui::Button("<-")) {
                 delete currentTest;
