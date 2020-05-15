@@ -108,12 +108,13 @@ int main(void) {
         glMouseY = (1.0f - (float)(mousey/height))*2.0f - 1.0f;
         
         // Rendering ...
+        if (currentTest == testMenu) glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         renderer.clear();
         if (currentTest) {
             currentTest->update(0.0f);
             currentTest->render();
             
-            ImGui::Begin("Test");
+            ImGui::Begin("Tests");
             // if we arent in test menu, draw button and if it is clicked, ...
             if (currentTest != testMenu && ImGui::Button("<-")) {
                 delete currentTest;
