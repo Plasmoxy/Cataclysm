@@ -1,4 +1,4 @@
-#include "Renderer.hpp"
+#include "Renderer.h"
 
 
 void Renderer::clear() const {

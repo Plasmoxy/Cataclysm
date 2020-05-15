@@ -3,8 +3,8 @@
 #include <vector>
 #include <cassert>
 #include <GL/glew.h>
-#include "VertexBuffer.hpp"
-#include "IndexBuffer.hpp"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
 
 struct VertexAttribute {
 	GLuint type = 0;
