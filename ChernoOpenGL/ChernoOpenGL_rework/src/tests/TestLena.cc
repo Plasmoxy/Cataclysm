@@ -35,10 +35,7 @@ namespace tests {
 		vao->setIBO(*ibo);
 		vao->setVBO(*vbo, layout);
 
-		glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -100.0f, 100.0f);
-		glm::mat4 view(1.0f);
-		glm::mat4 model(1.0f);
-		shader->setUniformMat4f("u_MVP", proj * view * model);
+		position = glm::vec3(200, 200, 0);
 	}
 
 	TestLena::~TestLena() {
@@ -54,11 +51,19 @@ namespace tests {
 		shader->bind();
 		shader->setUniform1f("u_Negative", negative);
 		
+		glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1000.0f, 1000.0f);
+		glm::mat4 view(1.0f);
+		glm::mat4 model = glm::translate(glm::mat4(1.0f), position);
+		model = glm::scale(model, glm::vec3(2));
+		shader->setUniformMat4f("u_MVP", proj * view * model);
+
 		renderer.draw(*vao, *ibo, *shader);
 	}
 
 	void TestLena::imGuiRender() {
 		ImGui::Text("Lena XDDD");
+		ImGui::SliderFloat3("Translation", &position.x, 0.0f, 900.0f);
+		ImGui::SliderFloat("u_Negative", &negative, 0.0f, 1.0f);
 	}
 
 }

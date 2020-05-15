@@ -6,7 +6,7 @@
 #include "IndexBuffer.h"
 #include "Texture.h"
 #include "Shader.h"
-
+#include "glm/glm.hpp"
 
 namespace tests {
 
@@ -17,7 +17,9 @@ namespace tests {
 		VertexBuffer* vbo;
 		IndexBuffer* ibo;
 		VertexArray* vao;
+
 		float negative = 0;
+		glm::vec3 position = glm::vec3(0, 0, 0);
 
 		TestLena();
 		~TestLena();
