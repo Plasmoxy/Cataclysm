@@ -58,10 +58,9 @@ int main(void) {
     glEnable(GL_DEBUG_OUTPUT);
     glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
     glDebugMessageCallback(GLDebugMessageCallback, nullptr);
-
-    // blending
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    glEnable(GL_DEPTH_TEST);
 
     // Setup ImGui
     IMGUI_CHECKVERSION();
@@ -89,10 +88,10 @@ int main(void) {
     // geometry data...
     float vertices[] = {
         //  x     y    texX  texY
-        100.f, 100.f,  0.0f, 0.0f,
-        200.f, 100.f,  1.0f, 0.0f,
-        200.f, 200.f,  1.0f, 1.0f,
-        100.f, 200.f,  0.0f, 1.0f,
+        -50.f, -50.f,  0.0f, 0.0f,
+         50.f, -50.f,  1.0f, 0.0f,
+         50.f,  50.f,  1.0f, 1.0f,
+        -50.f,  50.f,  0.0f, 1.0f,
     };
     unsigned int indices[] = {
         0, 1, 2,
@@ -155,14 +154,15 @@ int main(void) {
         // Rendering ...
         renderer.clear();
 
-        model = glm::translate(glm::mat4(1.0f), translation);
-
         shader.bind();
-        shader.setUniform4f("u_Color", 1.0, 0.0, 1.0, 1.0);
-        shader.setUniform2f("u_mouse", glMouseX, glMouseY);
-        shader.setUniformMat4f("u_MVP", proj * view * model);
         shader.setUniform1f("u_Negative", negative);
 
+        model = glm::translate(glm::mat4(1.0f), translation);
+        shader.setUniformMat4f("u_MVP", proj * view * model);
+        renderer.draw(*va, *ib, shader);
+
+        model = glm::translate(glm::mat4(1.0f), glm::vec3(100.0f, 100.0f, 0.0f));
+        shader.setUniformMat4f("u_MVP", proj * view * model);
         renderer.draw(*va, *ib, shader);
 
         /*GLint varrayid;
@@ -179,7 +179,7 @@ int main(void) {
         ImGui::SetWindowPos(ImVec2(20, 20), ImGuiCond_Once);
         {
             ImGui::Text("FPS: %.3f", io.Framerate);
-            ImGui::SliderFloat3("Translation", &translation.x, 0.0f, 100.0f);
+            ImGui::SliderFloat3("Translation", &translation.x, -1000.0f, 1000.0f);
             ImGui::SliderFloat("u_Negative", &negative, 0.0f, 1.0f);
         }
         ImGui::End();
