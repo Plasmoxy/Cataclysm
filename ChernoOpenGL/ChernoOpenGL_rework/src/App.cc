@@ -87,7 +87,6 @@ int main(void) {
     testMenu->registerTest<tests::TestClearColor>("Clear Color");
     testMenu->registerTest<tests::TestLena>("Lena");
 
-    bool controlsOpen = true;
     float seconds = 0;
     double mousex, mousey;
     float glMouseX, glMouseY;
@@ -113,7 +112,7 @@ int main(void) {
         renderer.clear();
         if (currentTest) {
             currentTest->update(0.0f);
-            currentTest->render();
+            currentTest->render(renderer);
             
             ImGui::Begin("Tests");
             // if we arent in test menu, draw button and if it is clicked, ...

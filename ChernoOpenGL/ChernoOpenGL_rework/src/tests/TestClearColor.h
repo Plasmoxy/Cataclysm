@@ -12,7 +12,7 @@ namespace tests {
 		~TestClearColor();
 
 		void update(float dt) override;
-		void render() override;
+		void render(Renderer& renderer) override;
 		void imGuiRender() override;
 	};
 

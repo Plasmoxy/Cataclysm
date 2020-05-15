@@ -16,7 +16,7 @@ namespace tests {
 
 	}
 
-	void TestClearColor::render() {
+	void TestClearColor::render(Renderer& renderer) {
 		glClearColor(clearColor[0], clearColor[1], clearColor[2], clearColor[3]);
 	}
 

@@ -4,6 +4,7 @@
 #include <string>
 #include <fmt/format.h>
 #include <functional>
+#include "Renderer.h"
 
 namespace tests {
 
@@ -14,7 +15,7 @@ namespace tests {
 		virtual ~Test() {}
 
 		virtual void update(float dt) {};
-		virtual void render() {};
+		virtual void render(Renderer& renderer) {};
 		virtual void imGuiRender() {};
 	};
 
