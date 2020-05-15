@@ -87,7 +87,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src/vendor;$(ProjectDir)include;C:/lib/glew/include;C:/lib/glfw/include;C:/lib/glm;C:/lib/stb</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src/vendor;$(ProjectDir)include;C:/lib/glew/include;C:/lib/glfw/include;C:/lib/glm;C:/lib/stb</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -139,7 +139,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>src/vendor;$(ProjectDir)include;C:/lib/glew/include;C:/lib/glfw/include;C:/lib/glm;C:/lib/stb</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;src/vendor;$(ProjectDir)include;C:/lib/glew/include;C:/lib/glfw/include;C:/lib/glm;C:/lib/stb</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -160,6 +160,7 @@
     <ClCompile Include="src\Renderer.cc" />
     <ClCompile Include="src\Shader.cc" />
     <ClCompile Include="src\tests\Test.h" />
+    <ClCompile Include="src\tests\TestClearColor.cc" />
     <ClCompile Include="src\Texture.cc" />
     <ClCompile Include="src\vendor\imgui\imgui.cpp" />
     <ClCompile Include="src\vendor\imgui\imgui_demo.cpp" />

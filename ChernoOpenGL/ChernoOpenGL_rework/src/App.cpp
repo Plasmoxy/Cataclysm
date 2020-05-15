@@ -27,6 +27,7 @@
 #include "VertexArray.h"
 #include "Shader.h"
 #include "Texture.h"
+#include "tests/TestClearColor.h"
 
 int main(void) {
 
@@ -76,59 +77,9 @@ int main(void) {
     // ImFont* defaultFont = io.Fonts->AddFontDefault(&cfg);
     // defaultFont->DisplayOffset.y = 2.0f;
 
-    // shader
-    Shader shader("shaders/texture.vert", "shaders/texture.frag");
-    shader.bind();
-
-    // texture
-    Texture texture("res/lena.png");
-    texture.bind(0);
-    shader.setUniform1i("u_Texture", 0); // texture slot uniform
-
-    // geometry data...
-    float vertices[] = {
-        //  x     y    texX  texY
-        -50.f, -50.f,  0.0f, 0.0f,
-         50.f, -50.f,  1.0f, 0.0f,
-         50.f,  50.f,  1.0f, 1.0f,
-        -50.f,  50.f,  0.0f, 1.0f,
-    };
-    unsigned int indices[] = {
-        0, 1, 2,
-        2, 3, 0,
-    };
-
-    // VAO
-    VertexArray* va = new VertexArray();
-
-    // VBO -> VAO
-    VertexBuffer* vb = new VertexBuffer(vertices, sizeof(vertices));
-    VertexBufferLayout layout;
-    layout.addAttrib<float>(2); // pos
-    layout.addAttrib<float>(2); // texture pos
-    va->setVBO(*vb, layout);
-
-    // IBO (slot GL_ELEMENT_ARRAY_BUFFER) -> VAO
-    IndexBuffer* ib = new IndexBuffer(indices, 6);
-    va->setIBO(*ib);
-
-    // math stuff
-    // View matrix - camera transform
-    // Model matrix - model transform
-    // Projection matrix - projection from model space to gl screen space
-    glm::mat4 proj = glm::ortho(0.0f, 960.0f, 0.0f, 540.0f, -1.0f, 1.0f);
-    glm::mat4 view(1.0f);
-    glm::mat4 model(1.0f);
-
-    // unbind all, imporant: unbind VAO first because we cannot delete
-    // a VBO/IBO that is currently bound to VAO
-    va->unbind();
-    vb->unbind();
-    ib->unbind();
-    shader.unbind();
-
-    // Renderer
+    // Stuff
     Renderer renderer;
+    test::TestClearColor colorTest;
 
     bool controlsOpen = true;
     float seconds = 0;
@@ -136,9 +87,6 @@ int main(void) {
     float glMouseX, glMouseY;
     int width, height;
     constexpr float pi = glm::pi<float>();
-    float negative = 0;
-
-    glm::vec3 translation(0, 0, 0);
 
     while (!glfwWindowShouldClose(window))
     {
@@ -153,17 +101,8 @@ int main(void) {
         
         // Rendering ...
         renderer.clear();
-
-        shader.bind();
-        shader.setUniform1f("u_Negative", negative);
-
-        model = glm::translate(glm::mat4(1.0f), translation);
-        shader.setUniformMat4f("u_MVP", proj * view * model);
-        renderer.draw(*va, *ib, shader);
-
-        model = glm::translate(glm::mat4(1.0f), glm::vec3(100.0f, 100.0f, 0.0f));
-        shader.setUniformMat4f("u_MVP", proj * view * model);
-        renderer.draw(*va, *ib, shader);
+        colorTest.update(0.0f);
+        colorTest.render();
 
         /*GLint varrayid;
         glGetIntegerv(GL_VERTEX_ARRAY_BINDING, &varrayid);
@@ -173,25 +112,12 @@ int main(void) {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
-        
-        ImGui::Begin("Controls", &controlsOpen, ImGuiWindowFlags_AlwaysAutoResize);
-        // ImGui::SetWindowCollapsed(true, ImGuiCond_Once);
-        ImGui::SetWindowPos(ImVec2(20, 20), ImGuiCond_Once);
-        {
-            ImGui::Text("FPS: %.3f", io.Framerate);
-            ImGui::SliderFloat3("Translation", &translation.x, -1000.0f, 1000.0f);
-            ImGui::SliderFloat("u_Negative", &negative, 0.0f, 1.0f);
-        }
-        ImGui::End();
+        colorTest.imGuiRender();
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         
         glfwSwapBuffers(window);
     }
-
-    delete va; // delete VAO first (unbinds the VBO and IBO)
-    delete vb;
-    delete ib;
 
     // cleanup
     ImGui_ImplOpenGL3_Shutdown();
