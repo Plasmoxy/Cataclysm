@@ -29,6 +29,7 @@
 #include "Texture.h"
 #include "tests/Test.h"
 #include "tests/TestClearColor.h"
+#include "tests/TestLena.h"
 
 int main(void) {
 
@@ -83,8 +84,8 @@ int main(void) {
     tests::Test* currentTest;
     tests::TestMenu* testMenu = new tests::TestMenu(currentTest);
     currentTest = testMenu;
-
     testMenu->registerTest<tests::TestClearColor>("Clear Color");
+    testMenu->registerTest<tests::TestLena>("Lena");
 
     bool controlsOpen = true;
     float seconds = 0;
