@@ -7,8 +7,14 @@
 using json = nlohmann::json;
 
 int main(int argc, char* argv[]) {
-	json xd;
-	xd["pi"] = 3.14;
-	fmt::print("{}", xd.to_st);
+	json xd = {
+		{"name", "Sebu"},
+		{"age", 19},
+	};
+	fmt::print("{}", xd.dump(2));
+
+	auto fromstr = "null"_json;
+
+
 	return 0;
 }
