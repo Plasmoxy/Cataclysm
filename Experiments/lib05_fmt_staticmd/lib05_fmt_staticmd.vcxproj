@@ -22,8 +22,8 @@
     <VcpkgTriplet Condition="'$(Platform)'=='Win32'">x86-windows-static-md</VcpkgTriplet>
     <VcpkgTriplet Condition="'$(Platform)'=='x64'">x64-windows-static-md</VcpkgTriplet>
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{37717F11-1F76-4060-8874-620B1530E3A6}</ProjectGuid>
-    <RootNamespace>C17Base</RootNamespace>
+    <ProjectGuid>{4a2acc8b-a36a-4fca-8b85-8db1dcac8cf5}</ProjectGuid>
+    <RootNamespace>lib05_fmt_staticmd</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
