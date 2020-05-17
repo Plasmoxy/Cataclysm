@@ -96,6 +96,7 @@ int main(void) {
 
     while (!glfwWindowShouldClose(window))
     {
+        glfwPollEvents();
         // Setup of frame
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplGlfw_NewFrame();
@@ -129,7 +130,6 @@ int main(void) {
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
         glfwSwapBuffers(window);
-        glfwPollEvents();
     }
 
     // cleanup
