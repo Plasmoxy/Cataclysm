@@ -1,43 +1,18 @@
 #include "ofApp.h"
 
-int t = 0;
-
 //--------------------------------------------------------------
 void ofApp::setup(){
-	ofSetFrameRate(60);
-	ofSetBackgroundAuto(false);
-	ofBackground(0);
+	cout << "Hello" << endl;
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	
+	 
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 
-	if (ofGetMousePressed(OF_MOUSE_BUTTON_LEFT)) {
-		ofSetRectMode(OF_RECTMODE_CENTER);
-
-		t++;
-		float r = 20 * (t / 60.0f);
-
-		int numRects = 20;
-		for (int i = 0; i < numRects; i++) {
-			ofSetColor(0, ofRandom(50, 255), ofRandom(50, 255));
-			float w = ofRandom(0.0f, 1.0f);
-			float h = ofRandom(0, 3);
-			float dx = ofRandom(-r, r);
-			float dy = ofRandom(-r, r);
-
-			ofDrawCircle(
-				ofGetMouseX() + dx,
-				ofGetMouseY() + dy,
-				w
-			);
-		}
-	}
 }
 
 //--------------------------------------------------------------

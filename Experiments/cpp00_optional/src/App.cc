@@ -3,7 +3,7 @@
 #include <string>
 #include <fmt/format.h>
 #include <optional>
-
+#include <cassert>
 
 struct Person {
 	std::string name;
@@ -19,7 +19,9 @@ template <> struct fmt::formatter<std::optional<Person>> {
 };
 
 int main(int argc, char* argv[]) {
-	std::optional<int> maybe = {};
+	using namespace std;
+
+	optional<int> maybe = {};
 
 	fmt::print("has value = {}\n", maybe.has_value());
 	fmt::print("maybe = {}\n", maybe ? "YES" : "NO");
@@ -31,11 +33,32 @@ int main(int argc, char* argv[]) {
 
 	fmt::print("val = {}\n", *maybe);
 
-	std::optional<Person> op = {};
+	optional<Person> opNone = {};
+	fmt::print("person none = {}\n", opNone);
+
+	optional<Person> op = Person {"Sebu", 19};
 	fmt::print("person = {}\n", op);
 
-	op = Person {"Sebu", 19};
-	fmt::print("person = {}\n", op);
+	Person p = Person {"Hanzo", 34};
+	fmt::print("Person normal: {} B\nPerson optional: {} B\n", sizeof(p), sizeof(op));
+
+	struct OptInt {
+		int value;
+		bool hasvalue;
+	};
+
+	assert(sizeof(OptInt) == sizeof(optional<int>));
+
+	optional<int> optInt = 1287;
+	OptInt* castedOptInt = (OptInt*) &optInt; // reinterpret to OptInt
+
+	assert(sizeof(optInt) == sizeof(*castedOptInt));
+
+	fmt::print("Sizeof bool = {} B\n", sizeof(bool));
+	fmt::print("Sizeof castedOptInt = {} B\n", sizeof(castedOptInt));
+	fmt::print("Sizeof optInt = {} B\n", sizeof(optInt));
+	fmt::print("casted hasvalue = {}\n", castedOptInt->hasvalue);
+	fmt::print("casted value = {}\n", castedOptInt->value);
 
 	return 0;
 }

@@ -25,6 +25,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpp00_optional", "cpp00_opt
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib06_cpp-httlib", "lib06_cpp-httlib\lib06_cpp-httlib.vcxproj", "{D89764F8-60C2-468E-8B54-9B63A09C31A1}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gl_glfw01_dependency", "gl_glfw01_dependency\gl_glfw01_dependency.vcxproj", "{C2F3ABEF-723F-4274-88A2-ABDC5384058A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -121,6 +123,14 @@ Global
 		{D89764F8-60C2-468E-8B54-9B63A09C31A1}.Release|x64.Build.0 = Release|x64
 		{D89764F8-60C2-468E-8B54-9B63A09C31A1}.Release|x86.ActiveCfg = Release|Win32
 		{D89764F8-60C2-468E-8B54-9B63A09C31A1}.Release|x86.Build.0 = Release|Win32
+		{C2F3ABEF-723F-4274-88A2-ABDC5384058A}.Debug|x64.ActiveCfg = Debug|x64
+		{C2F3ABEF-723F-4274-88A2-ABDC5384058A}.Debug|x64.Build.0 = Debug|x64
+		{C2F3ABEF-723F-4274-88A2-ABDC5384058A}.Debug|x86.ActiveCfg = Debug|Win32
+		{C2F3ABEF-723F-4274-88A2-ABDC5384058A}.Debug|x86.Build.0 = Debug|Win32
+		{C2F3ABEF-723F-4274-88A2-ABDC5384058A}.Release|x64.ActiveCfg = Release|x64
+		{C2F3ABEF-723F-4274-88A2-ABDC5384058A}.Release|x64.Build.0 = Release|x64
+		{C2F3ABEF-723F-4274-88A2-ABDC5384058A}.Release|x86.ActiveCfg = Release|Win32
+		{C2F3ABEF-723F-4274-88A2-ABDC5384058A}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
