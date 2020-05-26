@@ -12,9 +12,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofBackground(0);
-	ofSetColor(0, 255, 220);
-	ofDrawBitmapString("Hello general kenobi", 100, 100);
+
 }
 
 //--------------------------------------------------------------
