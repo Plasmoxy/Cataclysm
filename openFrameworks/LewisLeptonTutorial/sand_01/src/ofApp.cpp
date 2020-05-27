@@ -8,31 +8,23 @@ void ofApp::setup(){
 	ofEnableSmoothing();
 	ofSetFrameRate(120);
 
-	gui.setup();
-	gui.add(intSlider.setup("int slider", 64, 0, 64));
-	gui.add(floatSlider.setup("float slider", 0.5f, 0.0f, 1.0f));
-	gui.add(toggle.setup("toggle", false));
-	gui.add(button.setup("button"));
-	gui.add(label.setup("label", "THIS IS LABEL XDXD"));
-	gui.add(intField.setup("int field", 100, 0, 100));
-	gui.add(floatField.setup("float field", 100.0, 0.0f, 100.0));
-	gui.add(textField.setup("text field", "text"));
-	gui.add(vec2Slider.setup("vec2 slider", ofVec2f(0, 0), ofVec2f(0,0), ofVec2f(ofGetWidth()), ofGetHeight()));
-	
+	sliderGroup.setName("sliders");
+	sliderGroup.add(intSlider.set("resolution", 3, 3, 64));
+	sliderGroup.add(floatSlider.set("radius", 0.5f, 0.0f, 100.0f));
+	gui.setup(sliderGroup);
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-	
+	ofSetCircleResolution(intSlider);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	ofSetColor(0, 255, 230);
-	ofSetCircleResolution(intSlider);
 
-	ofDrawLine(0, 0, vec2Slider->x, vec2Slider->y);
-	ofDrawCircle(vec2Slider->x, vec2Slider->y, 120);
+	ofDrawLine(0, 0, mx, my);
+	ofDrawCircle(mx, my, floatSlider);
 
 	gui.draw();
 }

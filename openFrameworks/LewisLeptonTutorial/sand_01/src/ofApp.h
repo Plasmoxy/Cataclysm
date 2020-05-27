@@ -11,15 +11,10 @@ public:
 	int frame;
 
 	ofxPanel gui;
-	ofxIntSlider intSlider;
-	ofxFloatSlider floatSlider;
-	ofxButton button;
-	ofxLabel label;
-	ofxToggle toggle;
-	ofxIntField intField;
-	ofxFloatField floatField;
-	ofxTextField textField;
-	ofxVec2Slider vec2Slider;
+	
+	ofParameterGroup sliderGroup;
+	ofParameter<int> intSlider;
+	ofParameter<float> floatSlider;
 
 	void setup();
 	void update();
