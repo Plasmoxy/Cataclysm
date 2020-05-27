@@ -1,27 +1,40 @@
 #include "ofApp.h"
-#include <GLFW/glfw3.h>
-
-int mx, my;
-ofImage screenshot;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+
 	ofBackground(0);
 	ofSetCircleResolution(128);
 	ofEnableSmoothing();
 	ofSetFrameRate(120);
+
+	gui.setup();
+	gui.add(intSlider.setup("int slider", 64, 0, 64));
+	gui.add(floatSlider.setup("float slider", 0.5f, 0.0f, 1.0f));
+	gui.add(toggle.setup("toggle", false));
+	gui.add(button.setup("button"));
+	gui.add(label.setup("label", "THIS IS LABEL XDXD"));
+	gui.add(intField.setup("int field", 100, 0, 100));
+	gui.add(floatField.setup("float field", 100.0, 0.0f, 100.0));
+	gui.add(textField.setup("text field", "text"));
+	gui.add(vec2Slider.setup("vec2 slider", ofVec2f(0, 0), ofVec2f(0,0), ofVec2f(ofGetWidth()), ofGetHeight()));
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+	
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofSetColor(0, 255, 250);
-	ofDrawLine(0, 0, mx, my);
-	ofDrawCircle(mx, my, 120);
+	ofSetColor(0, 255, 230);
+	ofSetCircleResolution(intSlider);
+
+	ofDrawLine(0, 0, vec2Slider->x, vec2Slider->y);
+	ofDrawCircle(vec2Slider->x, vec2Slider->y, 120);
+
+	gui.draw();
 }
 
 //--------------------------------------------------------------
@@ -29,7 +42,8 @@ void ofApp::keyPressed(int key){
 	switch (key) {
 		case ' ':
 			screenshot.grabScreen(0, 0, ofGetWidth(), ofGetHeight());
-			screenshot.save("screen.png");
+			screenshot.save("screen_" + ofToString(frame, 3, '0') + ".png");
+			frame++;
 			break;
 	}
 }

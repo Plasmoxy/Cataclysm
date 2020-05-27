@@ -20,7 +20,7 @@
   </ItemGroup>
   <PropertyGroup Condition="'$(WindowsTargetPlatformVersion)'==''">
     <LatestTargetPlatformVersion>$([Microsoft.Build.Utilities.ToolLocationHelper]::GetLatestSDKTargetPlatformVersion('Windows', '10.0'))</LatestTargetPlatformVersion>
-    <WindowsTargetPlatformVersion Condition="'$(WindowsTargetPlatformVersion)' == ''">10.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion Condition="'$(WindowsTargetPlatformVersion)' == ''">$(LatestTargetPlatformVersion)</WindowsTargetPlatformVersion>
     <TargetPlatformVersion>$(WindowsTargetPlatformVersion)</TargetPlatformVersion>
   </PropertyGroup>
   <PropertyGroup Label="Globals">
@@ -32,7 +32,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -43,7 +43,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v142</PlatformToolset>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -100,7 +100,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\..\..\of\addons\ofxGui\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
@@ -120,7 +120,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\..\..\of\addons\ofxGui\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -140,7 +140,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\..\..\of\addons\ofxGui\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <ObjectFileName>$(IntDir)</ObjectFileName>
@@ -163,7 +163,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories);src;..\..\..\..\..\of\addons\ofxGui\src</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <ObjectFileName>$(IntDir)</ObjectFileName>
     </ClCompile>
@@ -182,9 +182,31 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="..\..\..\..\..\of\addons\ofxGui\src\ofxBaseGui.cpp" />
+    <ClCompile Include="..\..\..\..\..\of\addons\ofxGui\src\ofxButton.cpp" />
+    <ClCompile Include="..\..\..\..\..\of\addons\ofxGui\src\ofxColorPicker.cpp" />
+    <ClCompile Include="..\..\..\..\..\of\addons\ofxGui\src\ofxGuiGroup.cpp" />
+    <ClCompile Include="..\..\..\..\..\of\addons\ofxGui\src\ofxInputField.cpp" />
+    <ClCompile Include="..\..\..\..\..\of\addons\ofxGui\src\ofxLabel.cpp" />
+    <ClCompile Include="..\..\..\..\..\of\addons\ofxGui\src\ofxPanel.cpp" />
+    <ClCompile Include="..\..\..\..\..\of\addons\ofxGui\src\ofxSlider.cpp" />
+    <ClCompile Include="..\..\..\..\..\of\addons\ofxGui\src\ofxSliderGroup.cpp" />
+    <ClCompile Include="..\..\..\..\..\of\addons\ofxGui\src\ofxToggle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxBaseGui.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxButton.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxColorPicker.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxGui.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxGuiGroup.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxGuiUtils.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxInputField.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxLabel.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxPanel.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxSlider.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxSliderGroup.h" />
+    <ClInclude Include="..\..\..\..\..\of\addons\ofxGui\src\ofxToggle.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">
