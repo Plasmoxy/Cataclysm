@@ -1,12 +1,26 @@
 #pragma once
 
 #include "ofMain.h"
+#include "ofxAssimpModelLoader.h"
+#include "ofxGui.h"
 
 class ofApp : public ofBaseApp {
 public:
+	ofxPanel gui;
+	ofxVec3Slider lightPos;
+	ofxVec3Slider light2Pos;
+	ofxColorSlider lightColor;
+	ofxColorSlider light2Color;
+	ofxButton yeetBtn;
 
-	ofMesh mesh;
 	ofEasyCam cam;
+
+	ofxAssimpModelLoader model;
+	ofMaterial material;
+	ofTexture texture;
+	ofLight light;
+	ofLight light2;
+	ofMesh mesh;
 
 	void setup();
 	void update();
