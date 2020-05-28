@@ -4,6 +4,10 @@
 
 class ofApp : public ofBaseApp {
 public:
+
+	ofMesh mesh;
+	ofEasyCam cam;
+
 	void setup();
 	void update();
 	void draw();
