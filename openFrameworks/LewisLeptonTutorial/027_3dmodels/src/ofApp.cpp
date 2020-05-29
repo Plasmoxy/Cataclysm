@@ -11,11 +11,11 @@ void ofApp::setup(){
 		toggleWireframe.setup("toggle wireframe", false)
 	);
 	gui.add(
-		lightPos.setup("light pos", vec3(0, 0, 200), vec3(-2000, -2000, -2000), vec3(2000, 2000, 2000))
+		lightPos.setup("light pos", vec3(0, 10, 200), vec3(-2000, -2000, -2000), vec3(2000, 2000, 2000))
 	);
-	gui.add(lightAttenuation.setup("light attenuation", 1.0f, 0.0f, 4.0f));
+	gui.add(lightAttenuation.setup("light attenuation", 1.0f, -10.0f, 10.0f));
 	gui.add(
-		light2Pos.setup("light 2 pos", vec3(200, 0, 200), vec3(-2000, -2000, -2000), vec3(2000, 2000, 2000))
+		light2Pos.setup("light 2 pos", vec3(200, 10, 200), vec3(-2000, -2000, -2000), vec3(2000, 2000, 2000))
 	);
 	gui.add(
 		lightColor.setup("light color", ofColor(), ofColor(), ofColor(255, 255, 255))
@@ -31,6 +31,7 @@ void ofApp::setup(){
 	model.setScale(0.5f, 0.5f, 0.5f);
 
 	plane.set(1000, 1000);
+	plane.rotateDeg(-90, vec3(1, 0, 0));
 	
 	cout << "mat spec = " << material.getSpecularColor() << endl;
 	cout << "mat diff = " << material.getDiffuseColor() << endl;
@@ -53,15 +54,12 @@ void ofApp::draw(){
 	ofEnableLighting();
 	cam.begin();
 	light.enable();
-	light2.enable();
+	//light2.enable();
 	
-	//// grid
-	//ofPushMatrix();
-	//ofRotateDeg(90, 1, 0, 0);
-	//ofDrawPlane(1000, 1000);
-	//ofPopMatrix();
-
+	material.begin();
+	ofDrawBox(vec3(-300, 100, -300), 100);
 	plane.drawFaces();
+	material.end();
 
 	// model draw
 	if (toggleWireframe) {
@@ -74,7 +72,7 @@ void ofApp::draw(){
 		material.end();
 	}
 
-	light2.disable();
+	//light2.disable();
 	light.disable();
 	ofDisableLighting();
 	
