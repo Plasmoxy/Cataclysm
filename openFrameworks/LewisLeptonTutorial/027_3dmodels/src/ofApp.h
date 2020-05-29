@@ -9,9 +9,11 @@ public:
 	ofxPanel gui;
 	ofxVec3Slider lightPos;
 	ofxVec3Slider light2Pos;
+	ofxFloatSlider lightAttenuation;
 	ofxColorSlider lightColor;
 	ofxColorSlider light2Color;
 	ofxButton yeetBtn;
+	ofxToggle toggleWireframe;
 
 	ofEasyCam cam;
 
@@ -21,6 +23,7 @@ public:
 	ofLight light;
 	ofLight light2;
 	ofMesh mesh;
+	ofPlanePrimitive plane;
 
 	void setup();
 	void update();

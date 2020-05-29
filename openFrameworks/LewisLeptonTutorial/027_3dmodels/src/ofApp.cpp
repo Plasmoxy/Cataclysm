@@ -1,4 +1,5 @@
 #include "ofApp.h"
+using namespace glm;
 
 //--------------------------------------------------------------
 void ofApp::setup(){
@@ -7,10 +8,14 @@ void ofApp::setup(){
 
 	gui.setup();
 	gui.add(
-		lightPos.setup("light pos", ofVec3f(0, 0, 200), ofVec3f(-2000, -2000, -2000), ofVec3f(2000, 2000, 2000))
+		toggleWireframe.setup("toggle wireframe", false)
 	);
 	gui.add(
-		light2Pos.setup("light 2 pos", ofVec3f(200, 0, 200), ofVec3f(-2000, -2000, -2000), ofVec3f(2000, 2000, 2000))
+		lightPos.setup("light pos", vec3(0, 0, 200), vec3(-2000, -2000, -2000), vec3(2000, 2000, 2000))
+	);
+	gui.add(lightAttenuation.setup("light attenuation", 1.0f, 0.0f, 4.0f));
+	gui.add(
+		light2Pos.setup("light 2 pos", vec3(200, 0, 200), vec3(-2000, -2000, -2000), vec3(2000, 2000, 2000))
 	);
 	gui.add(
 		lightColor.setup("light color", ofColor(), ofColor(), ofColor(255, 255, 255))
@@ -23,6 +28,9 @@ void ofApp::setup(){
 	model.loadModel("monkemat.obj", true);
 	model.setRotation(0, 180.0f, 0.0f, 0.0f, 1.0f);
 	model.disableMaterials(); // do not draw model material
+	model.setScale(0.5f, 0.5f, 0.5f);
+
+	plane.set(1000, 1000);
 	
 	cout << "mat spec = " << material.getSpecularColor() << endl;
 	cout << "mat diff = " << material.getDiffuseColor() << endl;
@@ -33,6 +41,7 @@ void ofApp::setup(){
 void ofApp::update(){
 	light.setPosition(lightPos);
 	light.setDiffuseColor(ofFloatColor(ofColor(lightColor)));
+	light.setAttenuation(lightAttenuation);
 
 	light2.setPosition(light2Pos);
 	light2.setDiffuseColor(ofFloatColor(ofColor(light2Color)));
@@ -46,9 +55,24 @@ void ofApp::draw(){
 	light.enable();
 	light2.enable();
 	
-	material.begin();
-	model.drawFaces();
-	material.end();
+	//// grid
+	//ofPushMatrix();
+	//ofRotateDeg(90, 1, 0, 0);
+	//ofDrawPlane(1000, 1000);
+	//ofPopMatrix();
+
+	plane.drawFaces();
+
+	// model draw
+	if (toggleWireframe) {
+		ofSetColor(lightColor);
+		model.drawWireframe();
+	}
+	else {
+		material.begin();
+		model.drawFaces();
+		material.end();
+	}
 
 	light2.disable();
 	light.disable();
@@ -57,12 +81,12 @@ void ofApp::draw(){
 	// draw light with absolute color
 	ofSetColor(light.getDiffuseColor());
 	ofDrawSphere(lightPos, 20);
-	ofDrawBitmapString("light", lightPos + ofVec3f(0, 40, 0));
+	ofDrawBitmapString("light", lightPos + vec3(0, 40, 0));
 
 	// draw light 2 with absolute color
 	ofSetColor(light2.getDiffuseColor());
 	ofDrawSphere(light2Pos, 20);
-	ofDrawBitmapString("light 2", light2Pos + ofVec3f(0, 40, 0));
+	ofDrawBitmapString("light 2", light2Pos + vec3(0, 40, 0));
 
 	cam.end();
 	ofDisableDepthTest();
