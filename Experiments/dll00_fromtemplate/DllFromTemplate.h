@@ -3,6 +3,6 @@
 
 extern "C" {
 	
-	API int add(int a, int b);
+	API int DllFromTemplate_add(int a, int b);
 
 }

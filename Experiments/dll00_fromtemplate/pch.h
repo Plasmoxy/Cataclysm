@@ -8,6 +8,10 @@
 #define PCH_H
 
 
-
+#ifdef DLL00FROMTEMPLATE_EXPORTS
+#define API __declspec(dllexport)
+#else
+#define API __declspec(dllimport)
+#endif
 
 #endif //PCH_H
