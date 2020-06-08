@@ -8,21 +8,31 @@
 #include <mutex>
 using namespace std;
 
-int getRandom(int max) {
-	srand(time(nullptr));
-	return rand() % max;
+int resource = 0;
+mutex resourceMtx;
+
+void threadA() {
+	lock_guard lock(resourceMtx);
+	cout << "Thread A res = 4\n";
+	this_thread::sleep_for(chrono::seconds(3));
+	cout << "Thread A end\n";
 }
 
-void executeThread(int id) {
-	auto now = chrono::system_clock::now();
-	time_t sleepTime = chrono::system_clock::to_time_t(now);
-	tm myLocalTime = *localtime(&sleepTime);
-
-	cout << "Thread "    << id
-		 <<" Sleep Time" << ctime(&sleepTime) << "\n";
+void threadB() {
+	lock_guard lock(resourceMtx);
+	cout << "Thread B res = 5\n";
+	this_thread::sleep_for(chrono::seconds(4));
+	cout << "Thread B end\n";
 }
+
 
 int main(int argc, char* argv[]) {
-	
+	// lock resource
+	thread ta(threadA);
+	thread tb(threadB);
+
+
+	ta.join();
+	tb.join();
 	return 0;
 }
