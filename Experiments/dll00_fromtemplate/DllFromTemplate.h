@@ -3,6 +3,10 @@
 
 extern "C" {
 	
-	API int DllFromTemplate_add(int a, int b);
+	API int add(int a, int b);
+	API const char* emitStringPtr();
+	API const char* emitReusedStringObjPtr();
+	API const char* emitStringAutoMarshal();
+	API void tryOpenCv();
 
 }

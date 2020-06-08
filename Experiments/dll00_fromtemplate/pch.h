@@ -7,6 +7,9 @@
 #ifndef PCH_H
 #define PCH_H
 
+#include <string>
+#include <iostream>
+#include <Windows.h>
 
 #ifdef DLL00FROMTEMPLATE_EXPORTS
 #define API __declspec(dllexport)
