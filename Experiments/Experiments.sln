@@ -45,6 +45,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dll_client_csharp", "dll_cl
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cpp04_threadsbanas", "cpp04_threadsbanas\cpp04_threadsbanas.vcxproj", "{D0D6C8F8-064D-45C2-9D0F-6D44252BCDA9}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "c03_union", "c03_union\c03_union.vcxproj", "{554578B2-A64C-4E51-ADD3-CCE16F772A67}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -269,6 +271,16 @@ Global
 		{D0D6C8F8-064D-45C2-9D0F-6D44252BCDA9}.Release|x64.Build.0 = Release|x64
 		{D0D6C8F8-064D-45C2-9D0F-6D44252BCDA9}.Release|x86.ActiveCfg = Release|Win32
 		{D0D6C8F8-064D-45C2-9D0F-6D44252BCDA9}.Release|x86.Build.0 = Release|Win32
+		{554578B2-A64C-4E51-ADD3-CCE16F772A67}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{554578B2-A64C-4E51-ADD3-CCE16F772A67}.Debug|x64.ActiveCfg = Debug|x64
+		{554578B2-A64C-4E51-ADD3-CCE16F772A67}.Debug|x64.Build.0 = Debug|x64
+		{554578B2-A64C-4E51-ADD3-CCE16F772A67}.Debug|x86.ActiveCfg = Debug|Win32
+		{554578B2-A64C-4E51-ADD3-CCE16F772A67}.Debug|x86.Build.0 = Debug|Win32
+		{554578B2-A64C-4E51-ADD3-CCE16F772A67}.Release|Any CPU.ActiveCfg = Release|Win32
+		{554578B2-A64C-4E51-ADD3-CCE16F772A67}.Release|x64.ActiveCfg = Release|x64
+		{554578B2-A64C-4E51-ADD3-CCE16F772A67}.Release|x64.Build.0 = Release|x64
+		{554578B2-A64C-4E51-ADD3-CCE16F772A67}.Release|x86.ActiveCfg = Release|Win32
+		{554578B2-A64C-4E51-ADD3-CCE16F772A67}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
