@@ -10,10 +10,8 @@
 
 #include <GL/glew.h>
 #include <nuklear.h>
-#include <nuklear_sdl_gl3.h>
 
-static int
-overview(struct nk_context *ctx)
+static int overview(struct nk_context *ctx)
 {
     /* window flags */
     static int show_menu = nk_true;

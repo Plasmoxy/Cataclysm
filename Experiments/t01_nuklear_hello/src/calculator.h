@@ -12,7 +12,6 @@
 
 #include <GL/glew.h>
 #include <nuklear.h>
-#include <nuklear_sdl_gl3.h>
 
 static void
 calculator(struct nk_context *ctx)

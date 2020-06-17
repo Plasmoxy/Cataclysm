@@ -10,7 +10,6 @@
 
 #include <GL/glew.h>
 #include <nuklear.h>
-#include <nuklear_sdl_gl3.h>
 
 enum theme {THEME_BLACK, THEME_WHITE, THEME_RED, THEME_BLUE, THEME_DARK};
 
