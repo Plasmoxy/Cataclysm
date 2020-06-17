@@ -29,6 +29,8 @@
 #define NK_SDL_GL3_IMPLEMENTATION
 #include <nuklear.h>
 #include <nuklear_sdl_gl3.h>
+#undef NK_IMPLEMENTATION
+#undef NK_SDL_GL3_IMPLEMENTATION
 
 #define WINDOW_WIDTH 1200
 #define WINDOW_HEIGHT 800
@@ -43,7 +45,7 @@
 * ===============================================================*/
 /* This are some code examples to provide a small overview of what can be
 * done with this library. To try out an example uncomment the defines */
-/*#define INCLUDE_ALL */
+#define INCLUDE_ALL 
 /*#define INCLUDE_STYLE */
 /*#define INCLUDE_CALCULATOR */
 /*#define INCLUDE_OVERVIEW */
@@ -57,16 +59,16 @@
 #endif
 
 #ifdef INCLUDE_STYLE
-#include "../style.c"
+#include "style.h"
 #endif
 #ifdef INCLUDE_CALCULATOR
-#include "../calculator.c"
+#include "calculator.h"
 #endif
 #ifdef INCLUDE_OVERVIEW
-#include "../overview.c"
+#include "overview.h"
 #endif
 #ifdef INCLUDE_NODE_EDITOR
-#include "../node_editor.c"
+#include "node_editor.h"
 #endif
 
 /* ===============================================================
@@ -128,12 +130,12 @@ int main(int argc, char *argv[])
     /* style.c */
 #ifdef INCLUDE_STYLE
     /*set_style(ctx, THEME_WHITE);*/
-    /*set_style(ctx, THEME_RED);*/
+    set_style(ctx, THEME_RED);
     /*set_style(ctx, THEME_BLUE);*/
     /*set_style(ctx, THEME_DARK);*/
 #endif
 
-    bg.r = 0.10f, bg.g = 0.18f, bg.b = 0.24f, bg.a = 1.0f;
+    bg = (struct nk_colorf) {0, 0, 0, 1};
     while (running)
     {
         /* Input */
@@ -195,12 +197,16 @@ int main(int argc, char *argv[])
         glViewport(0, 0, win_width, win_height);
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(bg.r, bg.g, bg.b, bg.a);
+
+        
+
         /* IMPORTANT: `nk_sdl_render` modifies some global OpenGL state
         * with blending, scissor, face culling, depth test and viewport and
         * defaults everything back into a default state.
         * Make sure to either a.) save and restore or b.) reset your own state after
         * rendering the UI. */
         nk_sdl_render(NK_ANTI_ALIASING_ON, MAX_VERTEX_MEMORY, MAX_ELEMENT_MEMORY);
+
         SDL_GL_SwapWindow(win);
     }
 

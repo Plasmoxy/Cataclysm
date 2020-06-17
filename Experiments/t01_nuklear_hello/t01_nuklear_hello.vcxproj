@@ -86,7 +86,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions);_CRT_SECURE_NO_WARNINGS;</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>C:/lib/nuklear;C:\lib\glew\include;</AdditionalIncludeDirectories>
     </ClCompile>
@@ -142,7 +142,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\calculator.h" />
     <ClCompile Include="src\main.c" />
+    <ClCompile Include="src\node_editor.h" />
+    <ClCompile Include="src\overview.h" />
+    <ClCompile Include="src\style.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\nuklear.h" />
