@@ -13,6 +13,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "02_destination_city_cpp", "
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "03_multiply_strings", "03_multiply_strings\03_multiply_strings.vcxproj", "{5024E4E4-8F82-4DFB-A5C7-0EFC3B920CBF}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_assign_cookies", "04_assign_cookies\04_assign_cookies.vcxproj", "{45CC50B6-37FC-4BC8-9DB0-1F5D14970D7E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "05_assign_cookies_2", "05_assign_cookies_2\05_assign_cookies_2.vcxproj", "{C0AC2FA2-F024-45E8-AA0C-97B0CE071E06}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -61,6 +65,22 @@ Global
 		{5024E4E4-8F82-4DFB-A5C7-0EFC3B920CBF}.Release|x64.Build.0 = Release|x64
 		{5024E4E4-8F82-4DFB-A5C7-0EFC3B920CBF}.Release|x86.ActiveCfg = Release|Win32
 		{5024E4E4-8F82-4DFB-A5C7-0EFC3B920CBF}.Release|x86.Build.0 = Release|Win32
+		{45CC50B6-37FC-4BC8-9DB0-1F5D14970D7E}.Debug|x64.ActiveCfg = Debug|x64
+		{45CC50B6-37FC-4BC8-9DB0-1F5D14970D7E}.Debug|x64.Build.0 = Debug|x64
+		{45CC50B6-37FC-4BC8-9DB0-1F5D14970D7E}.Debug|x86.ActiveCfg = Debug|Win32
+		{45CC50B6-37FC-4BC8-9DB0-1F5D14970D7E}.Debug|x86.Build.0 = Debug|Win32
+		{45CC50B6-37FC-4BC8-9DB0-1F5D14970D7E}.Release|x64.ActiveCfg = Release|x64
+		{45CC50B6-37FC-4BC8-9DB0-1F5D14970D7E}.Release|x64.Build.0 = Release|x64
+		{45CC50B6-37FC-4BC8-9DB0-1F5D14970D7E}.Release|x86.ActiveCfg = Release|Win32
+		{45CC50B6-37FC-4BC8-9DB0-1F5D14970D7E}.Release|x86.Build.0 = Release|Win32
+		{C0AC2FA2-F024-45E8-AA0C-97B0CE071E06}.Debug|x64.ActiveCfg = Debug|x64
+		{C0AC2FA2-F024-45E8-AA0C-97B0CE071E06}.Debug|x64.Build.0 = Debug|x64
+		{C0AC2FA2-F024-45E8-AA0C-97B0CE071E06}.Debug|x86.ActiveCfg = Debug|Win32
+		{C0AC2FA2-F024-45E8-AA0C-97B0CE071E06}.Debug|x86.Build.0 = Debug|Win32
+		{C0AC2FA2-F024-45E8-AA0C-97B0CE071E06}.Release|x64.ActiveCfg = Release|x64
+		{C0AC2FA2-F024-45E8-AA0C-97B0CE071E06}.Release|x64.Build.0 = Release|x64
+		{C0AC2FA2-F024-45E8-AA0C-97B0CE071E06}.Release|x86.ActiveCfg = Release|Win32
+		{C0AC2FA2-F024-45E8-AA0C-97B0CE071E06}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
