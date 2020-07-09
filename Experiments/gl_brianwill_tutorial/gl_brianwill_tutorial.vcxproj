@@ -163,6 +163,15 @@
   <ItemGroup>
     <ClInclude Include="src\App.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\simple.frag" />
+    <None Include="res\simple.vert" />
+    <None Include="res\uniforms.frag" />
+    <None Include="res\uniforms.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="yes.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -24,4 +24,13 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="res\simple.vert" />
+    <None Include="res\simple.frag" />
+    <None Include="res\uniforms.vert" />
+    <None Include="res\uniforms.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="yes.txt" />
+  </ItemGroup>
 </Project>

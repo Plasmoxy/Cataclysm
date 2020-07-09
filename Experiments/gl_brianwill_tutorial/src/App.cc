@@ -1,8 +1,11 @@
 #include "App.h"
 #include <iostream>
 #include <string>
+#include <fstream>
+#include <sstream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include <fmt/format.h>
 
 using namespace std;
 
@@ -13,27 +16,19 @@ void framebufferSizeCallback(GLFWwindow* win, int w, int h) {
 const unsigned int SCR_WIDTH = 800;
 const unsigned int SCR_HEIGHT = 600;
 
-const char* SIMPLE_VERT = R"EOF(
-	#version 330 core
-	layout(location = 0) in vec3 pos;
+GLuint loadShader(const char* name) {
+	stringstream ss;
 	
-	void main() {
-		gl_Position = vec4(pos, 1.0);
-	}
-)EOF";
+	ss << ifstream(fmt::format("res/{}.vert", name)).rdbuf();
+	string vertexSrcStr = ss.str();
+	const char* vertexSrc = vertexSrcStr.c_str();
+	ss.str("");
 
+	ss << ifstream(fmt::format("res/{}.frag", name)).rdbuf();
+	string fragmentSrcStr = ss.str();
+	const char* fragmentSrc = fragmentSrcStr.c_str();
+	ss.str("");
 
-const char* SIMPLE_FRAG = R"EOF(
-	#version 330 core
-
-	out vec4 color;
-
-	void main() {
-		color = vec4(1.0f, 0.5f, 0.2f, 1.0f);
-	}
-)EOF";
-
-GLuint createShader(const char* vertexSrc, const char* fragmentSrc) {
 	// shaders
 	int success;
 	char infoLog[512];
@@ -101,17 +96,24 @@ int main(int argc, char* argv[]) {
 
 	// ==================== Data ==========================
 
-	GLuint shader = createShader(SIMPLE_VERT, SIMPLE_FRAG);
+	GLuint shader = loadShader("uniforms");
 
 	float vertices[] = {
 		-0.5f, -0.5f, 0.0f,
 		 0.5f, -0.5f, 0.0f,
 		 0.0f,	0.5f, 0.0f,
+		 0.5f,  0.5f, 0.0f,
 	};
 
-	GLuint vbo, vao;
+	GLuint indices[] = {
+		0, 1, 2,
+		1, 2, 3
+	};
+
+	GLuint vbo, ibo, vao;
 	glGenVertexArrays(1, &vao);
 	glGenBuffers(1, &vbo);
+	glGenBuffers(1, &ibo);
 	glBindVertexArray(vao);
 
 	glBindBuffer(GL_ARRAY_BUFFER, vbo);
@@ -121,6 +123,9 @@ int main(int argc, char* argv[]) {
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
 	// ==================== Render ==========================
 
 	while (!glfwWindowShouldClose(win)) {
@@ -129,6 +134,13 @@ int main(int argc, char* argv[]) {
 		if (glfwGetKey(win, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
 			glfwSetWindowShouldClose(win, true);
 		}
+
+		// logic
+		GLint loc_changingColor = glGetUniformLocation(shader, "changingColor");
+
+		glUseProgram(shader);
+		float time = glfwGetTime();
+		glUniform4f(loc_changingColor, 0.0f, sin(time) / 2.0f + 0.5f, 0.0f, 1.0f);
 		
 		// render
 		glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -136,7 +148,7 @@ int main(int argc, char* argv[]) {
 
 		glUseProgram(shader);
 		glBindVertexArray(vao);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
 		// swap
 		glfwSwapBuffers(win);
@@ -146,6 +158,7 @@ int main(int argc, char* argv[]) {
 	// ==================== Cleanup ==========================
 	glDeleteVertexArrays(1, &vao);
 	glDeleteBuffers(1, &vbo);
+	glDeleteBuffers(1, &ibo);
 
 	glfwTerminate();
 	return 0;
