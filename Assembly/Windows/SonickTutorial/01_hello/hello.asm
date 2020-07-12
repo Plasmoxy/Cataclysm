@@ -1,3 +1,4 @@
+# Simple hello for win64, in NASM
 bits 64
 default rel
 
@@ -7,7 +8,6 @@ segment .data
 segment .text
 global main
 extern ExitProcess
-
 extern printf
 
 main:
