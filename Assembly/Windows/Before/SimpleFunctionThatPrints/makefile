@@ -5,7 +5,7 @@ OBJS=$(BIN).obj
 	nasm -f win32 $<
 
 $(BIN): $(OBJS)
-	gcc $< -o $@
+	gcc -m32 $< -o $@
 
 run: $(BIN)
 	@echo ---
