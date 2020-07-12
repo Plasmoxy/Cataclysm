@@ -2,20 +2,18 @@
 # Linked using gcc, you can use LINK too
 
 # Binary target name (without extension)
-BIN=hello
-ASM_LINKER=gcc
-OBJS=$(BIN).obj
+NAME=hello
+OBJS=$(NAME).obj
+
+$(NAME).exe: $(OBJS)
+	gcc -m64 $< -o $@
 
 %.obj: %.asm
-	nasm -f win64 $<
+	nasm -f win64 $< -o $@
 
-$(BIN): $(OBJS)
-	ifeq ($(ASM_LINKER), gcc)
-	gcc -m64 $< -o $@
-	else ifeq ($(ASM_LINKER), link)
-	echo not implemented
-	endif
+clean:
+	rm -fr *.obj *.exe bin
 
-run: $(BIN)
-	@echo ---
+run: $(NAME).exe
+	@echo ------------------------------
 	@./$<
