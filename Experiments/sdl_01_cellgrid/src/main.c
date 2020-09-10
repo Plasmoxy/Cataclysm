@@ -15,7 +15,7 @@ const int VSYNC_ENABLED = 0;
 #define GRID_PX_SIZE GRID_PX_W * GRID_PX_H * 4 // gridPixels size in bytes
 
 // grid with cell values
-int grid[GRID_W][GRID_H] = {0};
+int grid[GRID_W][GRID_H] = {{0}};
 
 // grid pixels
 const unsigned char emptyGridPixels[GRID_PX_SIZE] = {0};
@@ -113,6 +113,7 @@ int main() {
 			for (int x = 0; x < GRID_W; x++) {
 				// draw pixels only if grid tile is not zero
 				if (grid[y][x] > 0) {
+					printf("x = %d, y = %d\n", x, y);
 					for (int row = 0; row < TW; row++) {
 						// calculate row start pixel position
 						int pxY = y*TW + row;
