@@ -53,6 +53,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lib08_sdl_image", "lib08_sd
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "gl_brianwill_tutorial", "gl_brianwill_tutorial\gl_brianwill_tutorial.vcxproj", "{9D1ED576-2ABA-468D-8EC0-75E439CEDC1C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sdl_00_harvard_tutorial", "sdl_00_harvard_tutorial\sdl_00_harvard_tutorial.vcxproj", "{A6CACBCD-176E-4A1C-8F99-9116D1E62343}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -317,6 +319,16 @@ Global
 		{9D1ED576-2ABA-468D-8EC0-75E439CEDC1C}.Release|x64.Build.0 = Release|x64
 		{9D1ED576-2ABA-468D-8EC0-75E439CEDC1C}.Release|x86.ActiveCfg = Release|Win32
 		{9D1ED576-2ABA-468D-8EC0-75E439CEDC1C}.Release|x86.Build.0 = Release|Win32
+		{A6CACBCD-176E-4A1C-8F99-9116D1E62343}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{A6CACBCD-176E-4A1C-8F99-9116D1E62343}.Debug|x64.ActiveCfg = Debug|x64
+		{A6CACBCD-176E-4A1C-8F99-9116D1E62343}.Debug|x64.Build.0 = Debug|x64
+		{A6CACBCD-176E-4A1C-8F99-9116D1E62343}.Debug|x86.ActiveCfg = Debug|Win32
+		{A6CACBCD-176E-4A1C-8F99-9116D1E62343}.Debug|x86.Build.0 = Debug|Win32
+		{A6CACBCD-176E-4A1C-8F99-9116D1E62343}.Release|Any CPU.ActiveCfg = Release|Win32
+		{A6CACBCD-176E-4A1C-8F99-9116D1E62343}.Release|x64.ActiveCfg = Release|x64
+		{A6CACBCD-176E-4A1C-8F99-9116D1E62343}.Release|x64.Build.0 = Release|x64
+		{A6CACBCD-176E-4A1C-8F99-9116D1E62343}.Release|x86.ActiveCfg = Release|Win32
+		{A6CACBCD-176E-4A1C-8F99-9116D1E62343}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
