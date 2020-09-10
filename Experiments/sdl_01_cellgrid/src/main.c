@@ -3,14 +3,19 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 
-int VSYNC_ENABLED = 1;
+const int VSYNC_ENABLED = 0;
 
 #define TW 6 // grid tile width
 #define GRID_W 100
 #define GRID_H 80
+#define GRID_PX_SIZE GRID_W * TW * GRID_H * TW * 4 // gridPixels size in bytes
 
+// grid with cell values
 int grid[GRID_W][GRID_H] = {0};
-unsigned char gridPixels[GRID_W * TW * GRID_H * TW * 4] = {0};
+
+// grid pixels
+const unsigned char emptyGridPixels[GRID_PX_SIZE] = {0};
+unsigned char gridPixels[GRID_PX_SIZE] = {0};
 
 int main() {
 
@@ -77,9 +82,17 @@ int main() {
 			gridPixels[ offset + 3 ] = SDL_ALPHA_OPAQUE;    // a
 		}
 		*/
+		/*
+			single pixel = 4 channels * 1 byte = 4 chars
+			pixel byte offset = (texWidth*4*y + 4*x) bytes
 
-		// set grid pixels
+		// single pixel cpy at the start of texture :
+		unsigned char redPix[4] = {0, 0, 255, 255};
+		memcpy(&gridPixels[0], &redPix[0], 4);
+		*/
 
+		// cpy empty grid to grid pixels
+		memcpy(gridPixels, emptyGridPixels, GRID_PX_SIZE);
 
 		// render texture
 		SDL_UpdateTexture(gridTexture, NULL, gridPixels, GRID_W * TW * 4);
