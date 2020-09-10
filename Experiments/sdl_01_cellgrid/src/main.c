@@ -8,7 +8,11 @@ const int VSYNC_ENABLED = 0;
 #define TW 6 // grid tile width
 #define GRID_W 100
 #define GRID_H 80
-#define GRID_PX_SIZE GRID_W * TW * GRID_H * TW * 4 // gridPixels size in bytes
+
+#define GRID_PX_W GRID_W*TW
+#define GRID_PX_H GRID_H*TW
+
+#define GRID_PX_SIZE GRID_PX_W * GRID_PX_H * 4 // gridPixels size in bytes
 
 // grid with cell values
 int grid[GRID_W][GRID_H] = {0};
@@ -40,11 +44,21 @@ int main() {
 		printf("  %s\n", SDL_GetPixelFormatName(info.texture_formats[i]));
 	}
 
-	// specific
+	// specific setup
 	SDL_Texture* gridTexture = SDL_CreateTexture(
 		rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING,
 		GRID_W * TW, GRID_H * TW
 	);
+
+	grid[0][0] = 1;
+	grid[3][0] = 1;
+	grid[0][3] = 1;
+	grid[3][3] = 1;
+
+	// pixel rows for copying into pixel buffer as tiles
+	const unsigned char pixel[4] = {255, 255,  0, 255};
+	const unsigned char bluePixelRow[4*TW];
+	for (int i = 0; i < TW; i++) memcpy(&bluePixelRow[i*4], pixel, 4);
 
 	// start render
 	SDL_Rect rect = {0, 0, 0, 0};
@@ -93,6 +107,23 @@ int main() {
 
 		// cpy empty grid to grid pixels
 		memcpy(gridPixels, emptyGridPixels, GRID_PX_SIZE);
+
+		// if we find a non-black tile, then copy every pixel row of that tile into gridPixels buffer
+		for (int y = 0; y < GRID_H; y++) {
+			for (int x = 0; x < GRID_W; x++) {
+				// draw pixels only if grid tile is not zero
+				if (grid[y][x] > 0) {
+					for (int row = 0; row < TW; row++) {
+						// calculate row start pixel position
+						int pxY = y*TW + row;
+						int pxX = x * TW;
+
+						// copy pixel row into that start according to xy formula above
+						memcpy(&gridPixels[GRID_PX_W * 4 * pxY + 4 * pxX], bluePixelRow, 4*TW);
+					}
+				}
+			}
+		}
 
 		// render texture
 		SDL_UpdateTexture(gridTexture, NULL, gridPixels, GRID_W * TW * 4);
