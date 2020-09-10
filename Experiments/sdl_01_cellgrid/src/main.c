@@ -57,12 +57,24 @@ void renderGridPixels() {
 			// draw pixels only if grid tile is not zero
 			if (grid[y][x] > 0) {
 				for (int row = 0; row < TW; row++) {
-					// calculate row start pixel position
+					// ===== rendering by coping pixel rows ====
+					// calculate row start pixel position and
+					// copy pixel row into that start according to xy formula above
+					/*
 					int pxY = y*TW + row;
 					int pxX = x * TW;
-
-					// copy pixel row into that start according to xy formula above
 					memcpy(&gridPixels[GRID_PX_W * 4 * pxY + 4 * pxX], bluePixelRow, 4*TW);
+					*/
+
+					// ======== alternative =======
+					// -> fill in each pixel manually depending on grid value
+					for (int col = 0; col < TW; col++) {
+						int pxY = y*TW + row;
+						int pxX = x*TW + col;
+
+						unsigned char pixel[4] = {255, 200, 0, grid[y][x]};
+						memcpy(&gridPixels[GRID_PX_W * 4 * pxY + 4 * pxX], pixel, 4);
+					}
 				}
 			}
 		}
@@ -92,15 +104,23 @@ int main() {
 		printf("  %s\n", SDL_GetPixelFormatName(info.texture_formats[i]));
 	}
 
-	// specific setup
+	// texture setup
 	SDL_Texture* gridTexture = SDL_CreateTexture(
 		rend, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STREAMING,
 		GRID_W * TW, GRID_H * TW
 	);
+	SDL_SetTextureBlendMode(gridTexture, SDL_BLENDMODE_BLEND);
 
 	// pixel rows for copying into pixel buffer as tiles
 	const unsigned char pixel[4] = {255, 255,  0, 255};
 	for (int i = 0; i < TW; i++) memcpy(&bluePixelRow[i*4], pixel, 4);
+
+	// custom setup grid
+	for (int gx = 0; gx < GRID_W; gx++) {
+		for (int gy = 0; gy < GRID_H; gy++) {
+			grid[gy][gx] = 127;
+		}
+	}
 
 	// start render
 	SDL_Rect rect = {0, 0, 0, 0};
@@ -125,7 +145,7 @@ int main() {
 
 				int* clickedCell = &grid[(size_t) GRID_H * my / GRID_PX_H][(size_t) GRID_W * mx / GRID_PX_W];
 				
-				*clickedCell = !*clickedCell;
+				*clickedCell += 20;
 
 				break;
 		}
@@ -134,6 +154,17 @@ int main() {
 		SDL_SetRenderDrawColor(rend, 0, 0, 0, 0);
 		SDL_RenderClear(rend);
 		SDL_GetMouseState(&mx, &my);
+
+		// weird stuff
+		for (int i = 0; i < 2000; i++) {
+			int* cell = &grid[rand() % GRID_H][rand() % GRID_W];
+			int d = 20 - (rand() % 40);
+			
+			// byte ceiling and flooring
+			if (*cell + d > 255) *cell = 255;
+			else if (*cell + d < 0) *cell = 0;
+			else *cell += d;
+		}
 		
 		// render grid pixels, copy to texture, render texture
 		renderGridPixels();
