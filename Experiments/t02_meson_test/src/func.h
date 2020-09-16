@@ -1,0 +1,2 @@
+
+void the_func();

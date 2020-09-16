@@ -3,6 +3,32 @@ imgui.ini
 # Created by https://www.toptal.com/developers/gitignore/api/c,c++,csharp,assembler,cmake,visualstudio
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,csharp,assembler,cmake,visualstudio
 
+### Meson ###
+build/
+dist/
+
+# subproject directories
+/subprojects/*
+!/subprojects/*.wrap
+
+# Meson Directories
+meson-logs
+meson-private
+
+# Meson Files
+meson_benchmark_setup.dat
+meson_test_setup.dat
+sanitycheckcpp.cc     # C++ specific
+sanitycheckcpp.exe    # C++ specific
+
+# Ninja
+build.ninja
+.ninja_deps
+.ninja_logs
+
+# Misc
+compile_commands.json
+
 ### Assembler ###
 *.exe
 *.o
