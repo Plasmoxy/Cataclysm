@@ -4,6 +4,7 @@ imgui.ini
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,c++,csharp,assembler,cmake,visualstudio
 
 ### Meson ###
+builddir/
 build/
 dist/
 
