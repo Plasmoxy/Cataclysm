@@ -1,2 +1,4 @@
 project('tutorial', 'c')
-executable('demo', ['main.c', 'func.c'])
+srcs = []
+subdir('src')
+executable('demo', srcs)

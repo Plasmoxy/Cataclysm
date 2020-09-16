@@ -1,0 +1,1 @@
+srcs += files('main.c', 'func.c')
